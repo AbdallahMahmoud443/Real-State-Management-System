@@ -41,6 +41,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/dashboard/index', [DashboardAdminController::class, 'index'])
         ->name('dashboard.show')
         ->middleware('SystemUserLogoutAuth:admin,admin');
+
     // hint: Route for User Profile
     Route::get('/profile', [AdminProfileController::class, 'profile'])->name('profile.show')->middleware('SystemUserLogoutAuth:admin,admin');
     Route::post('/profile', [AdminProfileController::class, 'postProfile'])->name('profile.handle')->middleware('SystemUserLogoutAuth:admin,admin');
