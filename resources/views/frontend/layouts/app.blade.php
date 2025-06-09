@@ -5,17 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MultiAuthentication System</title>
+    <title>The Home</title>
 
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="icon" type="image/png" href="{{ asset('assets/frontend/uploads/favicon.png') }}">
+    @include('frontend.layouts.assets_files.top_assets')
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 </head>
 
-<body style="background-color: rgb(10, 10, 32);" class="text-white">
+<body>
     @include('frontend.layouts.navbar')
-    <div class="container my-5">
-        @yield('content')
-    </div>
-
+    @yield('content')
+    @include('frontend.layouts.assets_files.bottom_assets')
 </body>
 
 </html>
