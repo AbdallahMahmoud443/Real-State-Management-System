@@ -12,8 +12,8 @@ class FrontController extends Controller
     {
         return view('frontend.pages.home');
     }
-    public function about()
+    public function contact()
     {
-        return view('frontend.pages.about');
+        return view('frontend.pages.contact');
     }
 }

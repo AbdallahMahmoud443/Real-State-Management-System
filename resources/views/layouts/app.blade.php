@@ -8,15 +8,17 @@
     <title>The Home</title>
 
     <link rel="icon" type="image/png" href="{{ asset('assets/frontend/uploads/favicon.png') }}">
-    @include('frontend.layouts.assets_files.top_assets')
+    @include('layouts.assets_files.top_assets')
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
-    @include('frontend.layouts.navbar')
+    @include('layouts.navbar')
     @yield('content')
-    @include('frontend.layouts.assets_files.bottom_assets')
+    @include('layouts.footer')
+    <x-frontend.ui.scroll-top />
+    @include('layouts.assets_files.bottom_assets')
 </body>
 
 </html>

@@ -1,4 +1,4 @@
-@extends('frontend.layouts.app')
+@extends('layouts.app')
 
 @section('content')
     <div class="slider" style="background-image: url({{ asset('assets/frontend/uploads/banner/banner-home.jpg') }})">
@@ -650,7 +650,7 @@
                     <div class="testimonial-carousel owl-carousel">
                         <div class="item">
                             <div class="photo">
-                                <img src="uploads/t1.jpg" alt="" />
+                                <img src="{{ asset('assets/frontend/uploads/user/t1.jpg') }}" alt="" />
                             </div>
                             <div class="text">
                                 <h4>Robert Krol</h4>
@@ -668,7 +668,7 @@
                         </div>
                         <div class="item">
                             <div class="photo">
-                                <img src="uploads/t2.jpg" alt="" />
+                                <img src="{{ asset('assets/frontend/uploads/user/t2.jpg') }}" alt="" />
                             </div>
                             <div class="text">
                                 <h4>Sal Harvey</h4>
@@ -774,118 +774,5 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="item">
-                        <h2 class="heading">Important Links</h2>
-                        <ul class="useful-links">
-                            <li><a href="">Home</a></li>
-                            <li><a href="">Properties</a></li>
-                            <li><a href="">Agents</a></li>
-                            <li><a href="">Blog</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="item">
-                        <h2 class="heading">Locations</h2>
-                        <ul class="useful-links">
-                            <li><a href="">New York</a></li>
-                            <li><a href="">Boston</a></li>
-                            <li><a href="">Orlanco</a></li>
-                            <li><a href="">Los Angeles</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6">
-                    <div class="item">
-                        <h2 class="heading">Contact</h2>
-                        <div class="list-item">
-                            <div class="left">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="right">
-                                34 Antiger Lane, USA, 12937
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="left">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div class="right">contact@arefindev.com</div>
-                        </div>
-                        <div class="list-item">
-                            <div class="left">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="right">122-222-1212</div>
-                        </div>
-                        <ul class="social">
-                            <li>
-                                <a href=""><i class="fab fa-facebook-f"></i></a>
-                            </li>
-                            <li>
-                                <a href=""><i class="fab fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href=""><i class="fab fa-pinterest-p"></i></a>
-                            </li>
-                            <li>
-                                <a href=""><i class="fab fa-linkedin-in"></i></a>
-                            </li>
-                            <li>
-                                <a href=""><i class="fab fa-instagram"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6">
-                    <div class="item">
-                        <h2 class="heading">Newsletter</h2>
-                        <p>
-                            To get the latest news from our website, please
-                            subscribe us here:
-                        </p>
-                        <form action="" method="post">
-                            <div class="form-group">
-                                <input type="text" name="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" class="btn btn-primary" value="Subscribe Now">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6">
-                    <div class="copyright">
-                        Copyright 2023, ArefinDev. All Rights Reserved.
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="right">
-                        <ul>
-                            <li><a href="terms.html">Terms of Use</a></li>
-                            <li>
-                                <a href="privacy.html">Privacy Policy</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="scroll-top">
-        <i class="fas fa-angle-up"></i>
     </div>
 @endsection

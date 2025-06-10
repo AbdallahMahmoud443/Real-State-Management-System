@@ -1,21 +1,42 @@
-@extends('user.layouts.app')
+@extends('layouts.app')
 @section('content')
-    <section class="d-flex justify-content-center">
-        <div class="card shadow-lg w-100" style="max-width: 880px;">
-            <div class="card-body">
-                <div class="text-center">
-                    <h2>Welcome {{ Auth::guard('web')->user()->name }} to Profile page</h2>
-                    <p class="card-text text-muted">Change Settings of your Account </p>
-                </div>
-                <div class="mt-4">
+    <x-frontend.banner title="Customer Edit Profile" />
+
+    <div class="page-content user-panel">
+        <div class="container">
+            <div class="row">
+                @include('user.layouts.sidebar')
+                <div class="col-lg-9 col-md-12">
                     <form action="{{ route('user.profile.handle') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        @method('POST')
+                        @method('PUT')
                         <div class="row">
-                            <div class="col-6">
-                                <div class="mb-4">
-                                    <label for="name" class="form-label text-muted">name</label>
-                                    <input type="name" class="form-control" id="name" name="name"
+                            <div class="col-md-12 mb-3">
+                                <label for="">Existing Photo</label>
+                                <div class="form-group">
+                                    @if (!Auth::guard('web')->user()->photo)
+                                        Not found profile Image
+                                    @else
+                                        <img src="{{ asset(Auth::guard('web')->user()->photo) }}" alt=""
+                                            width="250px" height="250px" class="rounded">
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="">Change Photo</label>
+                                <div class="form-group">
+                                    <input type="file" class="form-control" id="photo" name="photo">
+                                    @error('photo')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="name">Name *</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="name" name="name"
                                         value="{{ Auth::guard('web')->user()->name }}">
                                     @error('name')
                                         <div class="text-danger">
@@ -24,9 +45,9 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="mb-4">
-                                    <label for="email" class="form-label text-muted">email</label>
+                            <div class="col-md-6 mb-3">
+                                <label for="email">Email *</label>
+                                <div class="form-group">
                                     <input type="email" class="form-control" id="email" name="email"
                                         value="{{ Auth::guard('web')->user()->email }}">
                                     @error('email')
@@ -36,11 +57,9 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="mb-4">
-                                    <label for="phone" class="form-label text-muted">phone</label>
+                            <div class="col-md-6 mb-3">
+                                <label for="phone">Phone *</label>
+                                <div class="form-group">
                                     <input type="phone" class="form-control" id="phone" name="phone"
                                         value="{{ Auth::guard('web')->user()->phone }}">
                                     @error('phone')
@@ -50,23 +69,9 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="mb-4">
-                                    <label for="address" class="form-label text-muted">address</label>
-                                    <input type="address" class="form-control" id="address" name="address"
-                                        value="{{ Auth::guard('web')->user()->address }}">
-                                    @error('address')
-                                        <div class="text-danger">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="mb-4">
-                                    <label for="country" class="form-label text-muted">country</label>
+                            <div class="col-md-6 mb-3">
+                                <label for="country">Country *</label>
+                                <div class="form-group">
                                     <input type="country" class="form-control" id="country" name="country"
                                         value="{{ Auth::guard('web')->user()->country }}">
                                     @error('country')
@@ -76,10 +81,22 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="mb-4">
-                                    <label for="state" class="form-label text-muted">state</label>
-                                    <input type="state" class="form-control" id="state" name="state"
+                            <div class="col-md-6 mb-3">
+                                <label for="address">Address *</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="address" name="address"
+                                        value="{{ Auth::guard('web')->user()->address }}">
+                                    @error('address')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="state">State *</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="state" name="state"
                                         value="{{ Auth::guard('web')->user()->state }}">
                                     @error('state')
                                         <div class="text-danger">
@@ -88,11 +105,9 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="mb-4">
-                                    <label for="city" class="form-label text-muted">city</label>
+                            <div class="col-md-6 mb-3">
+                                <label for="city">City *</label>
+                                <div class="form-group">
                                     <input type="city" class="form-control" id="city" name="city"
                                         value="{{ Auth::guard('web')->user()->city }}">
                                     @error('city')
@@ -102,9 +117,9 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="mb-4">
-                                    <label for="zip" class="form-label text-muted">zip</label>
+                            <div class="col-md-6 mb-3">
+                                <label for="zip">Zip Code *</label>
+                                <div class="form-group">
                                     <input type="text" class="form-control" id="zip" name="zip"
                                         value="{{ Auth::guard('web')->user()->zip }}">
                                     @error('zip')
@@ -114,12 +129,11 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="mb-4">
-                                    <label for="password" class="form-label text-muted">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password">
+                            <div class="col-md-6 mb-3">
+                                <label for="password">Password *</label>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        value="">
                                     @error('password')
                                         <div class="text-danger">
                                             {{ $message }}
@@ -127,11 +141,11 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="mb-4">
-                                    <label for="confirm_password" class="form-label text-muted">confirm Password</label>
+                            <div class="col-md-6 mb-3">
+                                <label for="confirm_password">confirm password *</label>
+                                <div class="form-group">
                                     <input type="password" class="form-control" id="confirm_password"
-                                        name="confirm_password">
+                                        name="confirm_password" value="">
                                     @error('confirm_password')
                                         <div class="text-danger">
                                             {{ $message }}
@@ -139,35 +153,15 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="mb-4">
-                                    <label for="photo" class="form-label text-muted">photo</label>
-                                    <input type="file" class="form-control" id="photo" name="photo">
-                                    <div class="my-2">
-                                        @if (!Auth::guard('web')->user()->photo)
-                                            Not found profile Image
-                                        @else
-                                            <img src="{{ asset(Auth::guard('web')->user()->photo) }}" alt=""
-                                                width="100px" height="100px">
-                                        @endif
-                                    </div>
-                                    @error('photo')
-                                        <div class="text-danger">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-primary" value="Update">
                                 </div>
                             </div>
-                        </div>
-                        <div class="d-flex">
-                            <button type="submit" class="btn btn-lg text-light"
-                                style="background-color: rgb(17, 17, 53);">Update Settings</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 @endsection

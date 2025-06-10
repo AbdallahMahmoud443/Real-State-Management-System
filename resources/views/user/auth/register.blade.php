@@ -1,52 +1,62 @@
-@extends('user.layouts.auth_layout')
-@section('content')
-    <div class="card shadow-lg w-100" style="max-width: 480px;">
-        <div class="card-body">
-            <div class="text-center">
-                <h1 class="card-title h3 login-header"> Sign in as User</h1>
-                <p class="card-text text-muted">Sign in below to access your User account</p>
-            </div>
-            <div class="mt-4">
-                <form action="{{ route('user.register.handle') }}" method="POST">
-                    @csrf
-                    @method('POST')
-                    <div class="mb-4">
-                        <label for="name" class="form-label text-muted">UserName</label>
-                        <input type="text" class="form-control" id="name" placeholder="name" name="name">
-                        @error('name')
-                            <div class="text-danger">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="mb-4">
-                        <label for="email" class="form-label text-muted">Email Address</label>
-                        <input type="email" class="form-control" id="email" placeholder="Email Address"
-                            name="email">
-                        @error('email')
-                            <div class="text-danger">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="mb-4">
-                        <label for="password" class="form-label text-muted">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Password" name="password">
-                        @error('password')
-                            <div class="text-danger">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
+@extends('layouts.app')
 
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-lg text-light" style="background-color: rgb(17, 17, 53);">Sign
-                            up</button>
+@section('content')
+    <x-frontend.banner title="Customer Registration" />
+
+    <div class="page-content" style="height: 49vh !important">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-4 col-lg-5 col-md-6 col-sm-12">
+                    <div class="login-form">
+                        <form action="{{ route('user.register.handle') }}" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="" class="form-label">UserName *</label>
+                                <input type="text" name="name" class="form-control">
+                                @error('name')
+                                    <div class="text-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Email *</label>
+                                <input type="text" name="email" class="form-control">
+                                @error('email')
+                                    <div class="text-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Password *</label>
+                                <input type="password" name="password" class="form-control">
+                                @error('password')
+                                    <div class="text-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Password *</label>
+                                <input type="password" name="confirm_password" class="form-control">
+                                @error('confirm_password')
+                                    <div class="text-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary bg-website">
+                                    Create Account
+                                </button>
+                            </div>
+                        </form>
+                        <div class="mb-3">
+                            <a href="{{ route('user.login.show') }}" class="primary-color">Existing User? Login Now</a>
+                        </div>
                     </div>
-                    <p class="text-center text-muted mt-4">Do have an account yet?
-                        <a href="{{ route('user.login.show') }}" class="text-decoration-none">Sign in</a>.
-                    </p>
-                </form>
+                </div>
             </div>
         </div>
     </div>

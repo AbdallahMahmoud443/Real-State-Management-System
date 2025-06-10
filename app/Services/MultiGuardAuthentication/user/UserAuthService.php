@@ -8,7 +8,6 @@ use App\Services\MultiGuardAuthentication\Contracts\AuthServiceContract;
 class UserAuthService implements AuthServiceContract
 {
     public function __construct(protected UserAuthContract $userAuthRepository) {}
-
     public function Login($validated_credentials): bool
     {
         return $this->userAuthRepository->login($validated_credentials);

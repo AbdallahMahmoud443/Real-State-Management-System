@@ -14,7 +14,7 @@ use App\Http\Controllers\User\profile\UserProfileController;
 
 // title: Frontend Routes
 Route::get('/', [FrontController::class, 'index'])->name('home');
-Route::get('/about', [FrontController::class, 'about'])->name('about');
+Route::get('/contact', [FrontController::class, 'contact'])->name('contact');
 
 // title: Admin Routes
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
@@ -81,5 +81,5 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
         ->middleware('SystemUserLogoutAuth:web,user');
     // hint: Route for User Profile
     Route::get('/profile', [UserProfileController::class, 'profile'])->name('profile.show')->middleware('SystemUserLogoutAuth:web,user');
-    Route::post('/profile', [UserProfileController::class, 'postProfile'])->name('profile.handle')->middleware('SystemUserLogoutAuth:web,user');
+    Route::put('/profile', [UserProfileController::class, 'postProfile'])->name('profile.handle')->middleware('SystemUserLogoutAuth:web,user');
 });

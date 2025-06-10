@@ -16,7 +16,7 @@
                 <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a href="index.html" class="nav-link">Home</a>
+                            <a href="{{ route('home') }}" class="nav-link">Home</a>
                         </li>
                         <li class="nav-item">
                             <a href="properties.html" class="nav-link">Properties</a>
@@ -37,10 +37,16 @@
                             <a href="blog.html" class="nav-link">Blog</a>
                         </li>
                         <li class="nav-item">
-                            <a href="contact.html" class="nav-link">Contact</a>
+                            <a href="{{ route('contact') }}" class="nav-link">Contact</a>
                         </li>
+
                         <li class="nav-item">
-                            <a href="Login.html" class="nav-link">Login</a>
+                            @if (Auth::guard('web')->check())
+                                <a href="{{ route('user.dashboard.show') }}" class="nav-link">Customer Dashboard</a>
+                            @endif
+                            @if (!Auth::guard('web')->check())
+                                <a href="Login.html" class="nav-link">Login</a>
+                            @endif
                         </li>
                     </ul>
                 </div>

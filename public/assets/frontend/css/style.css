@@ -99,6 +99,7 @@ p {font-weight: 400;}
     padding-top: 0;
     padding-bottom: 0;
     background: #fff;
+    z-index: 100;
 }
 
 .main-nav .navbar {
@@ -195,7 +196,7 @@ p {font-weight: 400;}
 
 @media (max-width: 991px) {
     .mobile-nav .logo {
-        z-index: 999999!important;   
+        z-index: 999999!important;
     }
 }
 
@@ -558,7 +559,7 @@ p {font-weight: 400;}
 }
 @media (max-width: 480px) {
 
-    
+
 }
 
 
@@ -1660,7 +1661,7 @@ p {font-weight: 400;}
 .property-result .left-item .share a.facebook {
     background: #3b5998;
 }
-.property-result .left-item .share a.twitter {    
+.property-result .left-item .share a.twitter {
     background: #00acee;
 }
 .property-result .left-item .share a.linkedin {
