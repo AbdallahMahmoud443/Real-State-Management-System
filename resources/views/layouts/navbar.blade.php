@@ -44,7 +44,10 @@
                             @if (Auth::guard('web')->check())
                                 <a href="{{ route('user.dashboard.show') }}" class="nav-link">Customer Dashboard</a>
                             @endif
-                            @if (!Auth::guard('web')->check())
+                            @if (Auth::guard('agent')->check())
+                                <a href="{{ route('agent.dashboard.show') }}" class="nav-link">Agent Dashboard</a>
+                            @endif
+                            @if (!Auth::guard('web')->check() && !Auth::guard('agent')->check())
                                 <a href="Login.html" class="nav-link">Login</a>
                             @endif
                         </li>

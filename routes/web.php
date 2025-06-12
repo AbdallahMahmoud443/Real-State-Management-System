@@ -4,6 +4,11 @@ use App\Http\Controllers\Admin\auth\AuthenticationAdminController;
 use App\Http\Controllers\admin\auth\ResetPasswordAdminController;
 use App\Http\Controllers\admin\dashboard\DashboardAdminController;
 use App\Http\Controllers\Admin\profile\AdminProfileController;
+use App\Http\Controllers\Agent\auth\AgentAuthController;
+use App\Http\Controllers\Agent\auth\AgentRegistrationController;
+use App\Http\Controllers\Agent\auth\AgentResetPasswordController;
+use App\Http\Controllers\agent\dashboard\DashboardAgentController;
+use App\Http\Controllers\Agent\profile\AgentUpdateProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\frontend\FrontController;
 use App\Http\Controllers\User\auth\AuthenticationUserController;
@@ -46,7 +51,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/profile', [AdminProfileController::class, 'profile'])->name('profile.show')->middleware('SystemUserLogoutAuth:admin,admin');
     Route::post('/profile', [AdminProfileController::class, 'postProfile'])->name('profile.handle')->middleware('SystemUserLogoutAuth:admin,admin');
 });
-
 // title: Users Routes
 Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
     // hint: Routes For User Registration
@@ -82,4 +86,40 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
     // hint: Route for User Profile
     Route::get('/profile', [UserProfileController::class, 'profile'])->name('profile.show')->middleware('SystemUserLogoutAuth:web,user');
     Route::put('/profile', [UserProfileController::class, 'postProfile'])->name('profile.handle')->middleware('SystemUserLogoutAuth:web,user');
+});
+// title: Agent Routes
+Route::group(['prefix' => 'agent', 'as' => 'agent.'], function () {
+    // hint: Routes For User Registration
+    Route::get('/register', [AgentRegistrationController::class, 'register'])
+        ->name('register.show')->middleware('SystemUserLoginAuth');
+    Route::post('/register', [AgentRegistrationController::class, 'postRegister'])
+        ->name('register.handle')->middleware('SystemUserLoginAuth');
+    Route::get('/register-verify/{token}', [AgentRegistrationController::class, 'postRegisterVerify'])
+        ->name('register-verify.handle')->middleware('SystemUserLoginAuth');
+    // hint: Routes for User Authentication
+    Route::get('/', [AgentAuthController::class, 'login'])
+        ->name('login.index')->middleware('SystemUserLoginAuth');
+    Route::get('/login', [AgentAuthController::class, 'login'])
+        ->name('login.show')->middleware('SystemUserLoginAuth');
+    Route::post('/login', [AgentAuthController::class, 'postLogin'])
+        ->name('login.handle')->middleware('SystemUserLoginAuth');
+    Route::get('/logout', [AgentAuthController::class, 'logout'])
+        ->name('logout.handle')
+        ->middleware('SystemUserLogoutAuth:agent,agent');
+    // hint: Routes for User Reset Password
+    Route::get('/forget-password', [AgentResetPasswordController::class, 'forgetPassword'])
+        ->name('forget-password.show')->middleware(['SystemUserLoginAuth']);
+    Route::post('/forget-password', [AgentResetPasswordController::class, 'postForgetPassword'])
+        ->name('forget-password.handle')->middleware(['SystemUserLoginAuth']);
+    Route::get('/reset-password/{email}/{token}', [AgentResetPasswordController::class, 'resetPassword'])
+        ->name('reset-password.show')->middleware(['SystemUserLoginAuth']);
+    Route::post('/reset-password/{email}/{token}', [AgentResetPasswordController::class, 'postResetPassword'])
+        ->name('reset-password.handle')->middleware(['SystemUserLoginAuth']);
+    // hint: Routes for User Dashboard
+    Route::get('/dashboard/index', [DashboardAgentController::class, 'index'])
+        ->name('dashboard.show')
+        ->middleware('SystemUserLogoutAuth:agent,agent');
+    // hint: Route for User Profile
+    Route::get('/profile', [AgentUpdateProfileController::class, 'profile'])->name('profile.show')->middleware('SystemUserLogoutAuth:agent,agent');
+    Route::put('/profile', [AgentUpdateProfileController::class, 'postProfile'])->name('profile.handle')->middleware('SystemUserLogoutAuth:agent,agent');
 });

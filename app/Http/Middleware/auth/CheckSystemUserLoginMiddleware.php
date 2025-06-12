@@ -16,7 +16,7 @@ class CheckSystemUserLoginMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::guard('admin')->check() || Auth::guard('web')->check()) {
+        if (Auth::guard('admin')->check() || Auth::guard('web')->check() || Auth::guard('agent')->check()) {
             return redirect()->route('home');
         }
         return $next($request);

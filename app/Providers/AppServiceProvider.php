@@ -3,17 +3,25 @@
 namespace App\Providers;
 
 use App\Repositories\MultiGuardAuthentication\Auth\AdminAuthRepository;
+use App\Repositories\MultiGuardAuthentication\Auth\AgentAuthRepository;
 use App\Repositories\MultiGuardAuthentication\Auth\Contracts\AdminAuthContract;
+use App\Repositories\MultiGuardAuthentication\Auth\Contracts\AgentAuthContract;
 use App\Repositories\MultiGuardAuthentication\Auth\Contracts\UserAuthContract;
 use App\Repositories\MultiGuardAuthentication\Auth\UserAuthRepository;
+use App\Repositories\MultiGuardAuthentication\Registration\AgentRegistrationRepository;
+use App\Repositories\MultiGuardAuthentication\Registration\Contracts\AgentRegistrationContract;
 use App\Repositories\MultiGuardAuthentication\Registration\Contracts\UserRegistrationContract;
 use App\Repositories\MultiGuardAuthentication\Registration\UserRegistrationRepository;
 use App\Repositories\MultiGuardAuthentication\Reset_password\AdminResetPasswordRepository;
+use App\Repositories\MultiGuardAuthentication\Reset_password\AgentResetPasswordRepository;
 use App\Repositories\MultiGuardAuthentication\Reset_password\Contracts\AdminResetPasswordContract;
+use App\Repositories\MultiGuardAuthentication\Reset_password\Contracts\AgentResetPasswordContract;
 use App\Repositories\MultiGuardAuthentication\Reset_password\Contracts\UserResetPasswordContract;
 use App\Repositories\MultiGuardAuthentication\Reset_password\UserResetPasswordRepository;
 use App\Repositories\MultiGuardAuthentication\Update_profile\AdminUpdateProfileRepository;
+use App\Repositories\MultiGuardAuthentication\Update_profile\AgentUpdateProfileRepository;
 use App\Repositories\MultiGuardAuthentication\Update_profile\Contracts\AdminUpdateProfileContract;
+use App\Repositories\MultiGuardAuthentication\Update_profile\Contracts\AgentUpdateProfileContract;
 use App\Repositories\MultiGuardAuthentication\Update_profile\Contracts\UserUpdateProfileContract;
 use App\Repositories\MultiGuardAuthentication\Update_profile\UserUpdateProfileRepository;
 use App\Services\MultiGuardAuthentication\Contracts\RegisterEmailVerificationContract;
@@ -38,6 +46,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserResetPasswordContract::class, UserResetPasswordRepository::class);
         $this->app->bind(UserRegistrationContract::class, UserRegistrationRepository::class);
         $this->app->bind(UserUpdateProfileContract::class, UserUpdateProfileRepository::class);
+        // agent
+        $this->app->bind(AgentRegistrationContract::class, AgentRegistrationRepository::class);
+        $this->app->bind(AgentAuthContract::class, AgentAuthRepository::class);
+        $this->app->bind(AgentResetPasswordContract::class, AgentResetPasswordRepository::class);
+        $this->app->bind(AgentUpdateProfileContract::class, AgentUpdateProfileRepository::class);
         // Verification Emails
         $this->app->bind(RegisterEmailVerificationContract::class, VerifyRegistration::class);
         $this->app->bind(ResetPasswordEmailVerificationContract::class, VerifyResetPassword::class);

@@ -29,8 +29,8 @@ class UserResetPasswordService implements ResetPasswordServiceContract
     }
     public function getSystemUserForResetPassword(string $email, string $token): ?Model
     {
-        $admin = $this->userResetPasswordRepository->GetSystemUserWithTokenAndEmail($email, $token);
-        return  $admin;
+        $user = $this->userResetPasswordRepository->GetSystemUserWithTokenAndEmail($email, $token);
+        return  $user;
     }
     public function postResetPassword(string $email, string $token, string $newPassword): bool
     {

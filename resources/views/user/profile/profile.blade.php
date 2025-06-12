@@ -60,7 +60,7 @@
                             <div class="col-md-6 mb-3">
                                 <label for="phone">Phone *</label>
                                 <div class="form-group">
-                                    <input type="phone" class="form-control" id="phone" name="phone"
+                                    <input type="text" class="form-control" id="phone" name="phone"
                                         value="{{ Auth::guard('web')->user()->phone }}">
                                     @error('phone')
                                         <div class="text-danger">
@@ -72,7 +72,7 @@
                             <div class="col-md-6 mb-3">
                                 <label for="country">Country *</label>
                                 <div class="form-group">
-                                    <input type="country" class="form-control" id="country" name="country"
+                                    <input type="text" class="form-control" id="country" name="country"
                                         value="{{ Auth::guard('web')->user()->country }}">
                                     @error('country')
                                         <div class="text-danger">
@@ -108,7 +108,7 @@
                             <div class="col-md-6 mb-3">
                                 <label for="city">City *</label>
                                 <div class="form-group">
-                                    <input type="city" class="form-control" id="city" name="city"
+                                    <input type="text" class="form-control" id="city" name="city"
                                         value="{{ Auth::guard('web')->user()->city }}">
                                     @error('city')
                                         <div class="text-danger">
