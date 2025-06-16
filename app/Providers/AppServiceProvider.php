@@ -24,6 +24,8 @@ use App\Repositories\MultiGuardAuthentication\Update_profile\Contracts\AdminUpda
 use App\Repositories\MultiGuardAuthentication\Update_profile\Contracts\AgentUpdateProfileContract;
 use App\Repositories\MultiGuardAuthentication\Update_profile\Contracts\UserUpdateProfileContract;
 use App\Repositories\MultiGuardAuthentication\Update_profile\UserUpdateProfileRepository;
+use App\Repositories\PricingPackages\contracts\PricingPackagesRepoContract;
+use App\Repositories\PricingPackages\PricingPackagesRepository;
 use App\Services\MultiGuardAuthentication\Contracts\RegisterEmailVerificationContract;
 use App\Services\MultiGuardAuthentication\Contracts\ResetPasswordEmailVerificationContract;
 use App\Services\MultiGuardAuthentication\Email_Verification\VerifyRegistration;
@@ -54,6 +56,8 @@ class AppServiceProvider extends ServiceProvider
         // Verification Emails
         $this->app->bind(RegisterEmailVerificationContract::class, VerifyRegistration::class);
         $this->app->bind(ResetPasswordEmailVerificationContract::class, VerifyResetPassword::class);
+        // Pricing Packages
+        $this->app->bind(PricingPackagesRepoContract::class, PricingPackagesRepository::class);
     }
 
     /**

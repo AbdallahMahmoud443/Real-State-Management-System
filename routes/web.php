@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\auth\AuthenticationAdminController;
 use App\Http\Controllers\admin\auth\ResetPasswordAdminController;
 use App\Http\Controllers\admin\dashboard\DashboardAdminController;
+use App\Http\Controllers\Admin\pricingPackages\PricingPackagesController;
 use App\Http\Controllers\Admin\profile\AdminProfileController;
 use App\Http\Controllers\Agent\auth\AgentAuthController;
 use App\Http\Controllers\Agent\auth\AgentRegistrationController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\User\profile\UserProfileController;
 // title: Frontend Routes
 Route::get('/', [FrontController::class, 'index'])->name('home');
 Route::get('/contact', [FrontController::class, 'contact'])->name('contact');
+Route::get('/pricing', [FrontController::class, 'pricing'])->name('pricing');
 
 // title: Admin Routes
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
@@ -45,6 +47,25 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     // hint: Admin Dashboard Route
     Route::get('/dashboard/index', [DashboardAdminController::class, 'index'])
         ->name('dashboard.show')
+        ->middleware('SystemUserLogoutAuth:admin,admin');
+    // hint: Admin Dashboard Route ( Pricing Packages)
+    Route::get('/dashboard/package/index', [PricingPackagesController::class, 'index'])
+        ->name('package.show')
+        ->middleware('SystemUserLogoutAuth:admin,admin');
+    Route::get('/dashboard/package/create', [PricingPackagesController::class, 'create'])
+        ->name('package.create.show')
+        ->middleware('SystemUserLogoutAuth:admin,admin');
+    Route::post('/dashboard/package/store', [PricingPackagesController::class, 'store'])
+        ->name('package.create.handle')
+        ->middleware('SystemUserLogoutAuth:admin,admin');
+    Route::delete('/dashboard/package/delete/{id}', [PricingPackagesController::class, 'destroy'])
+        ->name('package.delete.handle')
+        ->middleware('SystemUserLogoutAuth:admin,admin');
+    Route::get('/dashboard/package/edit/{id}', [PricingPackagesController::class, 'edit'])
+        ->name('package.edit')
+        ->middleware('SystemUserLogoutAuth:admin,admin');
+    Route::put('/dashboard/package/update/{id}', [PricingPackagesController::class, 'update'])
+        ->name('package.update')
         ->middleware('SystemUserLogoutAuth:admin,admin');
 
     // hint: Route for User Profile

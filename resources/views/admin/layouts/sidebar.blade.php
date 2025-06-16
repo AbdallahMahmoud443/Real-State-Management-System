@@ -18,6 +18,12 @@
                     <span>Edit Profile</span>
                 </a>
             </li>
+            <li class="{{ Request::is('admin/dashboard/package/*') ? 'active' : '' }}  ">
+                <a class="nav-link" href="{{ route('admin.package.show') }}">
+                    <i class="far fa-money-bill-alt"></i>
+                    <span>Pricing Package</span>
+                </a>
+            </li>
             <li class="{{ Route::is('admin.logout.handle') ? 'active' : '' }}  ">
                 <a class="nav-link" href="{{ route('admin.logout.handle') }}">
                     <i class="fas fa-sign-out-alt">
