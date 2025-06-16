@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\auth\AuthenticationAdminController;
 use App\Http\Controllers\admin\auth\ResetPasswordAdminController;
 use App\Http\Controllers\admin\dashboard\DashboardAdminController;
+use App\Http\Controllers\Admin\locations\LocationController;
 use App\Http\Controllers\Admin\pricingPackages\PricingPackagesController;
 use App\Http\Controllers\Admin\profile\AdminProfileController;
 use App\Http\Controllers\Agent\auth\AgentAuthController;
@@ -44,6 +45,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         ->name('reset-password.show')->middleware('SystemUserLoginAuth');
     Route::post('/reset-password/{email}/{token}', [ResetPasswordAdminController::class, 'postResetPassword'])
         ->name('reset-password.handle')->middleware('SystemUserLoginAuth');
+    // hint: Route for User Profile
+    Route::get('/profile', [AdminProfileController::class, 'profile'])->name('profile.show')->middleware('SystemUserLogoutAuth:admin,admin');
+    Route::post('/profile', [AdminProfileController::class, 'postProfile'])->name('profile.handle')->middleware('SystemUserLogoutAuth:admin,admin');
     // hint: Admin Dashboard Route
     Route::get('/dashboard/index', [DashboardAdminController::class, 'index'])
         ->name('dashboard.show')
@@ -67,10 +71,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::put('/dashboard/package/update/{id}', [PricingPackagesController::class, 'update'])
         ->name('package.update')
         ->middleware('SystemUserLogoutAuth:admin,admin');
-
-    // hint: Route for User Profile
-    Route::get('/profile', [AdminProfileController::class, 'profile'])->name('profile.show')->middleware('SystemUserLogoutAuth:admin,admin');
-    Route::post('/profile', [AdminProfileController::class, 'postProfile'])->name('profile.handle')->middleware('SystemUserLogoutAuth:admin,admin');
+    // hint: Admin Dashboard Route ( Locations)
+    Route::resource('location', LocationController::class)->middleware('SystemUserLogoutAuth:admin,admin');
 });
 // title: Users Routes
 Route::group(['prefix' => 'user', 'as' => 'user.'], function () {

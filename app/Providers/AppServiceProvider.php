@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\Locations\contracts\locationsContract;
+use App\Repositories\Locations\LocationsRepository;
 use App\Repositories\MultiGuardAuthentication\Auth\AdminAuthRepository;
 use App\Repositories\MultiGuardAuthentication\Auth\AgentAuthRepository;
 use App\Repositories\MultiGuardAuthentication\Auth\Contracts\AdminAuthContract;
@@ -58,6 +60,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ResetPasswordEmailVerificationContract::class, VerifyResetPassword::class);
         // Pricing Packages
         $this->app->bind(PricingPackagesRepoContract::class, PricingPackagesRepository::class);
+        // Location
+        $this->app->bind(locationsContract::class, LocationsRepository::class);
     }
 
     /**

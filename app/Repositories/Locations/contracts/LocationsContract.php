@@ -1,8 +1,11 @@
 <?php
 
-namespace App\Repositories\PricingPackages\contracts;
+namespace App\Repositories\Locations\contracts;
 
-interface PricingPackagesRepoContract
+use Illuminate\Database\Eloquent\Model;
+
+
+interface locationsContract
 {
     /**
      * Get all pricing packages
@@ -10,6 +13,7 @@ interface PricingPackagesRepoContract
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function fetchALL();
+
 
     /**
      * Get all pricing packages
@@ -21,7 +25,7 @@ interface PricingPackagesRepoContract
      * Create a new pricing package
      *
      * @param array $data
-     * @return \App\Models\PricingPackage
+     * @return \App\Models\Locations
      */
 
     public function create(array $data);
@@ -42,4 +46,11 @@ interface PricingPackagesRepoContract
      * @return bool
      */
     public function delete(int $id);
+    /**
+     * upload image
+     *  @param array $image
+     *  @param int $id
+     * @return void
+     */
+    public function UploadImage(array $image, Model $location): void;
 }
