@@ -10,20 +10,31 @@
             <li class="{{ Route::is('admin.dashboard.show') ? 'active' : '' }} "><a class="nav-link"
                     href="{{ route('admin.dashboard.show') }}"><i class="fas fa-home"></i>
                     <span>Dashboard</span></a></li>
-
-            <li class="{{ Route::is('admin.profile.show') ? 'active' : '' }}  ">
-                <a class="nav-link" href="{{ route('admin.profile.show') }}">
-                    <i class="fas fa-file">
-                    </i>
-                    <span>Edit Profile</span>
-                </a>
+            <li class="nav-item dropdown {{ Route::is('admin.location.*') ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-folder"></i><span>Property
+                        Section</span></a>
+                <ul class="dropdown-menu">
+                    <li class="active">
+                        <a class="nav-link" href="{{ route('admin.location.index') }}">
+                            <i class="fas fa-angle-right"></i>
+                            Locations</a>
+                    </li>
+                </ul>
             </li>
-            <li class="{{ Request::is('admin/dashboard/package/*') ? 'active' : '' }}  ">
+            <li class="{{ Request::is('admin/dashboard/package/*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('admin.package.show') }}">
                     <i class="far fa-money-bill-alt"></i>
                     <span>Pricing Package</span>
                 </a>
             </li>
+
+            <li class="{{ Route::is('admin.profile.show') ? 'active' : '' }}  ">
+                <a class="nav-link" href="{{ route('admin.profile.show') }}">
+                    <i class="fas fa-id-card"></i>
+                    <span>Edit Profile</span>
+                </a>
+            </li>
+
             <li class="{{ Route::is('admin.logout.handle') ? 'active' : '' }}  ">
                 <a class="nav-link" href="{{ route('admin.logout.handle') }}">
                     <i class="fas fa-sign-out-alt">

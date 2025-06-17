@@ -23,6 +23,7 @@ use App\Http\Controllers\User\profile\UserProfileController;
 Route::get('/', [FrontController::class, 'index'])->name('home');
 Route::get('/contact', [FrontController::class, 'contact'])->name('contact');
 Route::get('/pricing', [FrontController::class, 'pricing'])->name('pricing');
+Route::get('/location', [FrontController::class, 'location'])->name('location');
 
 // title: Admin Routes
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
