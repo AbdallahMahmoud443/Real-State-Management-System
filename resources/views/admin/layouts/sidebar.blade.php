@@ -10,14 +10,25 @@
             <li class="{{ Route::is('admin.dashboard.show') ? 'active' : '' }} "><a class="nav-link"
                     href="{{ route('admin.dashboard.show') }}"><i class="fas fa-home"></i>
                     <span>Dashboard</span></a></li>
-            <li class="nav-item dropdown {{ Route::is('admin.location.*') ? 'active' : '' }}">
+            <li
+                class="nav-item dropdown {{ Route::is('admin.location.*') || Route::is('admin.amenity.*') || Route::is('admin.type.*') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-folder"></i><span>Property
                         Section</span></a>
                 <ul class="dropdown-menu">
-                    <li class="active">
+                    <li class="{{ Route::is('admin.location.*') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.location.index') }}">
                             <i class="fas fa-angle-right"></i>
                             Locations</a>
+                    </li>
+                    <li class="{{ Route::is('admin.type.*') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.type.index') }}">
+                            <i class="fas fa-angle-right"></i>
+                            Types</a>
+                    </li>
+                    <li class="{{ Route::is('admin.amenity.*') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.amenity.index') }}">
+                            <i class="fas fa-angle-right"></i>
+                            Amenities</a>
                     </li>
                 </ul>
             </li>

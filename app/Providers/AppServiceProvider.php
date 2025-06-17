@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\Amenities\AmenityRepository;
+use App\Repositories\Amenities\contract\AmenityContract;
 use App\Repositories\Locations\contracts\locationsContract;
 use App\Repositories\Locations\LocationsRepository;
 use App\Repositories\MultiGuardAuthentication\Auth\AdminAuthRepository;
@@ -28,6 +30,8 @@ use App\Repositories\MultiGuardAuthentication\Update_profile\Contracts\UserUpdat
 use App\Repositories\MultiGuardAuthentication\Update_profile\UserUpdateProfileRepository;
 use App\Repositories\PricingPackages\contracts\PricingPackagesRepoContract;
 use App\Repositories\PricingPackages\PricingPackagesRepository;
+use App\Repositories\Types\contract\TypeContract;
+use App\Repositories\Types\TypeRepository;
 use App\Services\MultiGuardAuthentication\Contracts\RegisterEmailVerificationContract;
 use App\Services\MultiGuardAuthentication\Contracts\ResetPasswordEmailVerificationContract;
 use App\Services\MultiGuardAuthentication\Email_Verification\VerifyRegistration;
@@ -62,6 +66,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PricingPackagesRepoContract::class, PricingPackagesRepository::class);
         // Location
         $this->app->bind(locationsContract::class, LocationsRepository::class);
+        // Types
+        $this->app->bind(TypeContract::class, TypeRepository::class);
+        // Amenities
+        $this->app->bind(AmenityContract::class, AmenityRepository::class);
     }
 
     /**

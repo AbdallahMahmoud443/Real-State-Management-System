@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin\Amenities\AmenityController;
 use App\Http\Controllers\Admin\auth\AuthenticationAdminController;
 use App\Http\Controllers\admin\auth\ResetPasswordAdminController;
 use App\Http\Controllers\admin\dashboard\DashboardAdminController;
 use App\Http\Controllers\Admin\locations\LocationController;
 use App\Http\Controllers\Admin\pricingPackages\PricingPackagesController;
 use App\Http\Controllers\Admin\profile\AdminProfileController;
+use App\Http\Controllers\Admin\Types\TypeController;
 use App\Http\Controllers\Agent\auth\AgentAuthController;
 use App\Http\Controllers\Agent\auth\AgentRegistrationController;
 use App\Http\Controllers\Agent\auth\AgentResetPasswordController;
@@ -74,6 +76,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         ->middleware('SystemUserLogoutAuth:admin,admin');
     // hint: Admin Dashboard Route ( Locations)
     Route::resource('location', LocationController::class)->middleware('SystemUserLogoutAuth:admin,admin');
+    // hint: Admin Dashboard Route (Types)
+    Route::resource('type', TypeController::class)->middleware('SystemUserLogoutAuth:admin,admin');
+    // hint: Admin Dashboard Route (Amenities)
+    Route::resource('amenity', AmenityController::class)->middleware('SystemUserLogoutAuth:admin,admin');
+    
 });
 // title: Users Routes
 Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
