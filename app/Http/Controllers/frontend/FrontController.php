@@ -4,7 +4,7 @@ namespace App\Http\controllers\frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Services\Locations\LocationService;
+use App\Services\Properties\Locations\LocationService;
 use App\Services\PricingPackages\PricingPackagesService;
 
 class FrontController extends Controller

@@ -25,4 +25,9 @@ class PricingPackage extends Model
     {
         return $this->allowed_features == 0 ? 'No' : $this->allowed_features;
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

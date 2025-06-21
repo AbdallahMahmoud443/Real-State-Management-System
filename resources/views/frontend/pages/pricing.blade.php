@@ -37,7 +37,7 @@
                                         </li>
                                     </ul>
                                     <div class="buy">
-                                        <a href="" class="btn btn-primary">
+                                        <a href="{{ route('agent.payment.show') }}" class="btn btn-primary">
                                             Choose Plan
                                         </a>
                                     </div>

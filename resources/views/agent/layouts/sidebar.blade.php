@@ -5,10 +5,10 @@
                 <a href="{{ route('agent.dashboard.show') }}">Dashboard</a>
             </li>
             <li class="list-group-item">
-                <a href="user-payment.html">Make Payment</a>
+                <a href="{{ route('agent.payment.show') }}">Make Payment</a>
             </li>
             <li class="list-group-item">
-                <a href="user-orders.html">Orders</a>
+                <a href="{{ route('agent.orders.show') }}">Orders</a>
             </li>
             <li class="list-group-item">
                 <a href="user-property-add.html">Add Property</a>

@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Repositories\Amenities\AmenityRepository;
-use App\Repositories\Amenities\contract\AmenityContract;
-use App\Repositories\Locations\contracts\locationsContract;
-use App\Repositories\Locations\LocationsRepository;
+use App\Repositories\Properties\Amenities\AmenityRepository;
+use App\Repositories\Properties\Amenities\contract\AmenityContract;
+use App\Repositories\Properties\Locations\contracts\locationsContract;
+use App\Repositories\Properties\Locations\LocationsRepository;
 use App\Repositories\MultiGuardAuthentication\Auth\AdminAuthRepository;
 use App\Repositories\MultiGuardAuthentication\Auth\AgentAuthRepository;
 use App\Repositories\MultiGuardAuthentication\Auth\Contracts\AdminAuthContract;
@@ -28,10 +28,12 @@ use App\Repositories\MultiGuardAuthentication\Update_profile\Contracts\AdminUpda
 use App\Repositories\MultiGuardAuthentication\Update_profile\Contracts\AgentUpdateProfileContract;
 use App\Repositories\MultiGuardAuthentication\Update_profile\Contracts\UserUpdateProfileContract;
 use App\Repositories\MultiGuardAuthentication\Update_profile\UserUpdateProfileRepository;
+use App\Repositories\Orders\contracts\OrderContract;
+use App\Repositories\Orders\OrderRepository;
 use App\Repositories\PricingPackages\contracts\PricingPackagesRepoContract;
 use App\Repositories\PricingPackages\PricingPackagesRepository;
-use App\Repositories\Types\contract\TypeContract;
-use App\Repositories\Types\TypeRepository;
+use App\Repositories\Properties\Types\contract\TypeContract;
+use App\Repositories\Properties\Types\TypeRepository;
 use App\Services\MultiGuardAuthentication\Contracts\RegisterEmailVerificationContract;
 use App\Services\MultiGuardAuthentication\Contracts\ResetPasswordEmailVerificationContract;
 use App\Services\MultiGuardAuthentication\Email_Verification\VerifyRegistration;
@@ -70,6 +72,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TypeContract::class, TypeRepository::class);
         // Amenities
         $this->app->bind(AmenityContract::class, AmenityRepository::class);
+        // Orders
+        $this->app->bind(OrderContract::class, OrderRepository::class);
     }
 
     /**

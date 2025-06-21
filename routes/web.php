@@ -1,17 +1,19 @@
 <?php
 
-use App\Http\Controllers\Admin\Amenities\AmenityController;
+use App\Http\Controllers\Admin\dashboard\Amenities\AmenityController;
 use App\Http\Controllers\Admin\auth\AuthenticationAdminController;
 use App\Http\Controllers\admin\auth\ResetPasswordAdminController;
 use App\Http\Controllers\admin\dashboard\DashboardAdminController;
-use App\Http\Controllers\Admin\locations\LocationController;
-use App\Http\Controllers\Admin\pricingPackages\PricingPackagesController;
+use App\Http\Controllers\Admin\dashboard\locations\LocationController;
+use App\Http\Controllers\Admin\dashboard\pricingPackages\PricingPackagesController;
 use App\Http\Controllers\Admin\profile\AdminProfileController;
-use App\Http\Controllers\Admin\Types\TypeController;
+use App\Http\Controllers\Admin\dashboard\Types\TypeController;
 use App\Http\Controllers\Agent\auth\AgentAuthController;
 use App\Http\Controllers\Agent\auth\AgentRegistrationController;
 use App\Http\Controllers\Agent\auth\AgentResetPasswordController;
 use App\Http\Controllers\agent\dashboard\DashboardAgentController;
+use App\Http\Controllers\Agent\Payments\paypalController;
+use App\Http\Controllers\Agent\Payments\PaypalController as PaymentsPaypalController;
 use App\Http\Controllers\Agent\profile\AgentUpdateProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\frontend\FrontController;
@@ -80,7 +82,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::resource('type', TypeController::class)->middleware('SystemUserLogoutAuth:admin,admin');
     // hint: Admin Dashboard Route (Amenities)
     Route::resource('amenity', AmenityController::class)->middleware('SystemUserLogoutAuth:admin,admin');
-    
 });
 // title: Users Routes
 Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
@@ -120,14 +121,14 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
 });
 // title: Agent Routes
 Route::group(['prefix' => 'agent', 'as' => 'agent.'], function () {
-    // hint: Routes For User Registration
+    // hint: Routes For Agent Registration
     Route::get('/register', [AgentRegistrationController::class, 'register'])
         ->name('register.show')->middleware('SystemUserLoginAuth');
     Route::post('/register', [AgentRegistrationController::class, 'postRegister'])
         ->name('register.handle')->middleware('SystemUserLoginAuth');
     Route::get('/register-verify/{token}', [AgentRegistrationController::class, 'postRegisterVerify'])
         ->name('register-verify.handle')->middleware('SystemUserLoginAuth');
-    // hint: Routes for User Authentication
+    // hint: Routes for Agent Authentication
     Route::get('/', [AgentAuthController::class, 'login'])
         ->name('login.index')->middleware('SystemUserLoginAuth');
     Route::get('/login', [AgentAuthController::class, 'login'])
@@ -137,7 +138,7 @@ Route::group(['prefix' => 'agent', 'as' => 'agent.'], function () {
     Route::get('/logout', [AgentAuthController::class, 'logout'])
         ->name('logout.handle')
         ->middleware('SystemUserLogoutAuth:agent,agent');
-    // hint: Routes for User Reset Password
+    // hint: Routes for Agent Reset Password
     Route::get('/forget-password', [AgentResetPasswordController::class, 'forgetPassword'])
         ->name('forget-password.show')->middleware(['SystemUserLoginAuth']);
     Route::post('/forget-password', [AgentResetPasswordController::class, 'postForgetPassword'])
@@ -146,11 +147,18 @@ Route::group(['prefix' => 'agent', 'as' => 'agent.'], function () {
         ->name('reset-password.show')->middleware(['SystemUserLoginAuth']);
     Route::post('/reset-password/{email}/{token}', [AgentResetPasswordController::class, 'postResetPassword'])
         ->name('reset-password.handle')->middleware(['SystemUserLoginAuth']);
-    // hint: Routes for User Dashboard
+    // hint: Route for Agent Profile
+    Route::get('/profile', [AgentUpdateProfileController::class, 'profile'])->name('profile.show')->middleware('SystemUserLogoutAuth:agent,agent');
+    Route::put('/profile', [AgentUpdateProfileController::class, 'postProfile'])->name('profile.handle')->middleware('SystemUserLogoutAuth:agent,agent');
+    // hint: Routes for Agent Dashboard
     Route::get('/dashboard/index', [DashboardAgentController::class, 'index'])
         ->name('dashboard.show')
         ->middleware('SystemUserLogoutAuth:agent,agent');
-    // hint: Route for User Profile
-    Route::get('/profile', [AgentUpdateProfileController::class, 'profile'])->name('profile.show')->middleware('SystemUserLogoutAuth:agent,agent');
-    Route::put('/profile', [AgentUpdateProfileController::class, 'postProfile'])->name('profile.handle')->middleware('SystemUserLogoutAuth:agent,agent');
+    Route::get('/dashboard/payment', [DashboardAgentController::class, 'payment'])->name('payment.show')->middleware('SystemUserLogoutAuth:agent,agent');
+    Route::get('/dashboard/orders', [DashboardAgentController::class, 'orders'])->name('orders.show')->middleware('SystemUserLogoutAuth:agent,agent');
+
+    //hint: Route for Agent Paypal
+    Route::post('/paypal', [PaypalController::class, 'paypal'])->name('paypal.handle')->middleware('SystemUserLogoutAuth:agent,agent');
+    Route::get('/paypal/success', [PaypalController::class, 'success'])->name('paypal.success')->middleware('SystemUserLogoutAuth:agent,agent');
+    Route::get('/paypal/cancel', [PaypalController::class, 'cancel'])->name('paypal.cancel')->middleware('SystemUserLogoutAuth:agent,agent');
 });
