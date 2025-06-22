@@ -98,7 +98,6 @@ class StripePaymentService implements PaymentContract
 
         // All Previous orders will be currently_active as false
         $this->orderServices->UpdateAgentOldOrdersState(Auth::guard('agent')->user()->id, ['currently_active' => false]);
-
         $orderData = [
             'agent_id' => Auth::guard('agent')->user()->id,
             'package_id' => $pricingPackage->id,
@@ -111,7 +110,6 @@ class StripePaymentService implements PaymentContract
             'currently_active' => true,
         ];
         $newOrder = $this->orderServices->createOrder($orderData);
-
         session()->forget(['package_id', 'stripe_session_id']);
         Log::info('Stripe payment completed successfully', [
             'order_id' => $newOrder->id,

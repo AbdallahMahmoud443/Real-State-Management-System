@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Agent\Payments;
 
 use App\Http\Controllers\Controller;
+use App\Services\Payments\PaymentMail\PaymentMailService;
 use App\Services\Payments\StripePaymentService;
 use App\Services\PricingPackages\PricingPackagesService;
 use Illuminate\Http\Request;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 
 class StripeController extends Controller
 {
-    public function __construct(protected StripePaymentService $stripePaymentService, protected PricingPackagesService $pricingPackage) {}
+    public function __construct(protected StripePaymentService $stripePaymentService, protected PricingPackagesService $pricingPackage, protected PaymentMailService $paymentMailService) {}
     public function stripe(Request $request)
     {
         try {
@@ -38,6 +39,7 @@ class StripeController extends Controller
             }
             $newOrder = $this->stripePaymentService->successPaymentOrder($request);
             if ($newOrder instanceof \App\Models\Order) {
+                $this->paymentMailService->sendPaymentMailToAgent($newOrder);
                 return redirect()->route('agent.payment.show')
                     ->with('success', 'Payment completed successfully! Your package is now active.');
             }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Agent\Payments;
 
 use App\Http\Controllers\Controller;
+use App\Services\Payments\PaymentMail\PaymentMailService;
 use App\Services\Payments\PaypalPaymentService;
 use App\Services\PricingPackages\PricingPackagesService;
 use Illuminate\Http\Request;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 
 class PaypalController extends Controller
 {
-    function __construct(protected PaypalPaymentService $paypalPaymentService, protected PricingPackagesService $pricingPackagesService) {}
+    function __construct(protected PaypalPaymentService $paypalPaymentService, protected PricingPackagesService $pricingPackagesService, protected PaymentMailService $paymentMailService) {}
     public function paypal(Request $request)
     {
         try {
@@ -29,6 +30,8 @@ class PaypalController extends Controller
     {
         $newOrder = $this->paypalPaymentService->successPaymentOrder($request);
         if ($newOrder instanceof \App\Models\Order) {
+            $this->paymentMailService->sendPaymentMailToAgent($newOrder);
+
             return redirect()->route('agent.payment.show')->with('success', 'Payment Process Completed');
         }
         return redirect()->route('agent.paypal.cancel')->with('error', 'Payment processing failed. Please try again.');
