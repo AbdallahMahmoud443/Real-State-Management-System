@@ -91,7 +91,6 @@ class PaypalPaymentService implements PaymentContract
                     return false;
                 }
                 $pricingPackage = $this->pricingPackagesService->fetchOnePackage($package_id);
-
                 // All Previous orders will be currently_active as false
                 $this->orderServices->UpdateAgentOldOrdersState(Auth::guard('agent')->user()->id, ['currently_active' => false]);
                 $orderData = [

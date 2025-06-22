@@ -43,7 +43,7 @@
                                     </td>
                                 </tr>
                             </form>
-                            <form action="" method="post">
+                            <form action="{{ route('agent.stripe.handle') }}" method="post">
                                 @csrf
                                 <tr>
                                     <td>
