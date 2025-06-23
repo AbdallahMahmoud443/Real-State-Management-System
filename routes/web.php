@@ -12,6 +12,7 @@ use App\Http\Controllers\Agent\auth\AgentAuthController;
 use App\Http\Controllers\Agent\auth\AgentRegistrationController;
 use App\Http\Controllers\Agent\auth\AgentResetPasswordController;
 use App\Http\Controllers\agent\dashboard\DashboardAgentController;
+use App\Http\Controllers\Agent\Invoice\InvoiceController;
 use App\Http\Controllers\Agent\Payments\paypalController;
 use App\Http\Controllers\Agent\Payments\PaypalController as PaymentsPaypalController;
 use App\Http\Controllers\Agent\Payments\stripeController;
@@ -164,7 +165,9 @@ Route::group(['prefix' => 'agent', 'as' => 'agent.'], function () {
     Route::get('/paypal/cancel', [PaypalController::class, 'cancel'])->name('paypal.cancel')->middleware('SystemUserLogoutAuth:agent,agent');
 
     //hint: Route for Agent Stripe
-    Route::post('/stripe', [stripeController::class, 'stripe'])->name('stripe.handle')->middleware('SystemUserLogoutAuth:agent,agent');;
-    Route::get('/stripe/success', [StripeController::class, 'success'])->name('stripe.success')->middleware('SystemUserLogoutAuth:agent,agent');;
-    Route::get('/stripe/cancel', [StripeController::class, 'cancel'])->name('stripe.cancel')->middleware('SystemUserLogoutAuth:agent,agent');;
+    Route::post('/stripe', [stripeController::class, 'stripe'])->name('stripe.handle')->middleware('SystemUserLogoutAuth:agent,agent');
+    Route::get('/stripe/success', [StripeController::class, 'success'])->name('stripe.success')->middleware('SystemUserLogoutAuth:agent,agent');
+    Route::get('/stripe/cancel', [StripeController::class, 'cancel'])->name('stripe.cancel')->middleware('SystemUserLogoutAuth:agent,agent');
+    // hint : Route for Agent download invoice
+    Route::get('/order/invoice/{order_id}', [InvoiceController::class, 'printInvoice'])->name('invoice.handle')->middleware('SystemUserLogoutAuth:agent,agent');;
 });

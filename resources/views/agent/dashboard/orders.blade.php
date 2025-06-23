@@ -26,7 +26,8 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>
-                                            {{ $order->transaction_id }}-
+                                            INV-{{ $order->id }}
+                                            <br />
                                             @if ($order->currently_active == 1)
                                                 <span class="badge bg-success">Currently Active</span>
                                             @else
@@ -49,8 +50,8 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="#" class="btn btn-primary btn-sm"><i
-                                                    class="fas fa-print"></i></a>
+                                            <a href="{{ route('agent.invoice.handle', $order->id) }}"
+                                                class="btn btn-primary btn-sm"><i class="fas fa-print"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
