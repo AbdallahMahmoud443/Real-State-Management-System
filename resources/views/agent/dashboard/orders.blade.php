@@ -16,6 +16,8 @@
                                     <th>Price</th>
                                     <th>Payment Date</th>
                                     <th>Expire Date</th>
+                                    <th>Total Days</th>
+                                    <th>Days Remaining</th>
                                     <th>
                                         Payment Method & Transaction Id
                                     </th>
@@ -38,6 +40,17 @@
                                         <td>${{ $order->paid_amount }}</td>
                                         <td>{{ $order->purchase_date }}</td>
                                         <td>{{ $order->expire_date }}</td>
+                                        <th>
+                                            {{ $order->total_days }}
+                                        </th>
+                                        <th>
+                                            @if ($order->currently_active == 1)
+                                                {{ $order->days_remaining }}
+                                            @else
+                                                0
+                                            @endif
+
+                                        </th>
                                         <td style="word-wrap: break-word; word-break: break-all;">
                                             <b>{{ $order->payment_method }}</b><br>
                                             {{ $order->transaction_id }}
