@@ -38,7 +38,18 @@
                     <span>Pricing Package</span>
                 </a>
             </li>
-
+            <li class="{{ Route::is('admin.Customers.index') ? 'active' : '' }}  ">
+                <a class="nav-link" href="{{ route('admin.Customers.index') }}">
+                    <i class="fas fa-users"></i>
+                    <span>Customers</span>
+                </a>
+            </li>
+            <li class="{{ Route::is('admin.agents.index') ? 'active' : '' }}  ">
+                <a class="nav-link" href="{{ route('admin.agents.index') }}">
+                    <i class="fas fa-users"></i>
+                    <span>Agents</span>
+                </a>
+            </li>
             <li class="{{ Route::is('admin.profile.show') ? 'active' : '' }}  ">
                 <a class="nav-link" href="{{ route('admin.profile.show') }}">
                     <i class="fas fa-id-card"></i>

@@ -34,6 +34,10 @@ use App\Repositories\PricingPackages\contracts\PricingPackagesRepoContract;
 use App\Repositories\PricingPackages\PricingPackagesRepository;
 use App\Repositories\Properties\Types\contract\TypeContract;
 use App\Repositories\Properties\Types\TypeRepository;
+use App\Repositories\Users\Agents\AgentsRepository;
+use App\Repositories\Users\Contracts\AgentsRepositoryContract;
+use App\Repositories\Users\Contracts\CustomersRepositoryContract;
+use App\Repositories\Users\Customers\CustomersRepository;
 use App\Services\MultiGuardAuthentication\Contracts\RegisterEmailVerificationContract;
 use App\Services\MultiGuardAuthentication\Contracts\ResetPasswordEmailVerificationContract;
 use App\Services\MultiGuardAuthentication\Email_Verification\VerifyRegistration;
@@ -74,6 +78,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AmenityContract::class, AmenityRepository::class);
         // Orders
         $this->app->bind(OrderContract::class, OrderRepository::class);
+        // Agents
+        $this->app->bind(AgentsRepositoryContract::class, AgentsRepository::class);
+        // users
+        $this->app->bind(CustomersRepositoryContract::class, CustomersRepository::class);
     }
 
     /**

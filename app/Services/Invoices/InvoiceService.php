@@ -22,7 +22,7 @@ class InvoiceService implements InvoiceContract
             'status' => $order->status,
             'paid_amount' => $order->paid_amount,
         ];
-        $pdf = Pdf::loadView('agent.invoices.order_invoice', compact('orderData'));
+        $pdf = Pdf::loadView('invoices.order_invoice', compact('orderData'));
         return $pdf->download($orderData['agent_name'] . '-invoice.pdf');
     }
 }
