@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\auth\AuthenticationAdminController;
 use App\Http\Controllers\admin\auth\ResetPasswordAdminController;
 use App\Http\Controllers\admin\dashboard\DashboardAdminController;
 use App\Http\Controllers\Admin\dashboard\locations\LocationController;
+use App\Http\Controllers\Admin\dashboard\orders\OrderController;
 use App\Http\Controllers\Admin\dashboard\pricingPackages\PricingPackagesController;
 use App\Http\Controllers\Admin\profile\AdminProfileController;
 use App\Http\Controllers\Admin\dashboard\Types\TypeController;
@@ -90,6 +91,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::resource('/agents', AgentController::class)->middleware('SystemUserLogoutAuth:admin,admin');
     // hint: Admin Dashboard Route (Customers)
     Route::resource('/Customers', CustomerController::class)->middleware('SystemUserLogoutAuth:admin,admin');
+    // hint: Admin Dashboard Route (orders)
+    Route::get('/orders', [OrderController::class, 'index'])->middleware('SystemUserLogoutAuth:admin,admin')->name('orders.index');
+    Route::get('/orders/{id}/print', [OrderController::class, 'printInvoice'])->middleware('SystemUserLogoutAuth:admin,admin')->name('orders.printInvoice');
 });
 // title: Users Routes
 Route::group(['prefix' => 'user', 'as' => 'user.'], function () {

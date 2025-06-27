@@ -50,6 +50,12 @@
                     <span>Agents</span>
                 </a>
             </li>
+            <li class="{{ Route::is('admin.orders.index') ? 'active' : '' }}  ">
+                <a class="nav-link" href="{{ route('admin.orders.index') }}">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Orders</span>
+                </a>
+            </li>
             <li class="{{ Route::is('admin.profile.show') ? 'active' : '' }}  ">
                 <a class="nav-link" href="{{ route('admin.profile.show') }}">
                     <i class="fas fa-id-card"></i>
