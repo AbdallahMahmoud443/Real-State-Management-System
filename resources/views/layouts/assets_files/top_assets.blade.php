@@ -19,6 +19,7 @@
 <script src="{{ asset('assets/frontend/js/select2.min.js') }}"></script>
 <script src="{{ asset('assets/frontend/js/jquery.waypoints.min.js') }}"></script>
 <script src="{{ asset('assets/frontend/js/moment.min.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/frontend/js/dataTables.bootstrap5.min.js') }}"></script>
 <script src="{{ asset('assets/frontend/js/owl.carousel.min.js') }}"></script>
 <script src="{{ asset('assets/frontend/js/jquery.meanmenu.js') }}"></script>

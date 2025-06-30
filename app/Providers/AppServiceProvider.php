@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Property;
 use App\Repositories\Properties\Amenities\AmenityRepository;
 use App\Repositories\Properties\Amenities\contract\AmenityContract;
 use App\Repositories\Properties\Locations\contracts\locationsContract;
@@ -32,6 +33,8 @@ use App\Repositories\Orders\contracts\OrderContract;
 use App\Repositories\Orders\OrderRepository;
 use App\Repositories\PricingPackages\contracts\PricingPackagesRepoContract;
 use App\Repositories\PricingPackages\PricingPackagesRepository;
+use App\Repositories\Properties\property\contract\PropertyRepoContract;
+use App\Repositories\Properties\property\PropertyRepo;
 use App\Repositories\Properties\Types\contract\TypeContract;
 use App\Repositories\Properties\Types\TypeRepository;
 use App\Repositories\Users\Agents\AgentsRepository;
@@ -82,6 +85,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AgentsRepositoryContract::class, AgentsRepository::class);
         // users
         $this->app->bind(CustomersRepositoryContract::class, CustomersRepository::class);
+        // Property
+        $this->app->bind(PropertyRepoContract::class, PropertyRepo::class);
     }
 
     /**

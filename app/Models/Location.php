@@ -13,4 +13,10 @@ class Location extends Model
         'photo',
         'total_properties'
     ];
+    
+    // hint: defined relations
+    public function properties()
+    {
+        return $this->hasMany(Property::class);
+    }
 }

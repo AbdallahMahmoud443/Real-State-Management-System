@@ -20,6 +20,7 @@ use App\Http\Controllers\Agent\Payments\paypalController;
 use App\Http\Controllers\Agent\Payments\PaypalController as PaymentsPaypalController;
 use App\Http\Controllers\Agent\Payments\stripeController;
 use App\Http\Controllers\Agent\profile\AgentUpdateProfileController;
+use App\Http\Controllers\Agent\properties\PropertyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\frontend\FrontController;
 use App\Http\Controllers\User\auth\AuthenticationUserController;
@@ -180,4 +181,6 @@ Route::group(['prefix' => 'agent', 'as' => 'agent.'], function () {
     Route::get('/stripe/cancel', [StripeController::class, 'cancel'])->name('stripe.cancel')->middleware('SystemUserLogoutAuth:agent,agent');
     // hint : Route for Agent download invoice
     Route::get('/order/invoice/{order_id}', [InvoiceController::class, 'printInvoice'])->name('invoice.handle')->middleware('SystemUserLogoutAuth:agent,agent');;
+    // hint: Route for Properties
+    Route::resource('properties', PropertyController::class)->middleware('SystemUserLogoutAuth:agent,agent');
 });

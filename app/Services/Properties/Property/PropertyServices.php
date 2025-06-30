@@ -1,0 +1,92 @@
+<?php
+
+namespace App\Services\Properties\Property;
+
+use App\Models\Property;
+use App\Repositories\Properties\property\contract\PropertyRepoContract;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
+
+
+class PropertyServices
+{
+
+    public function __construct(protected PropertyRepoContract $propertyRepo) {}
+
+    public function fetchPropertiesByAgentId(int $agentId): Collection
+    {
+        return $this->propertyRepo->getPropertiesByAgentId($agentId);
+    }
+
+    public function fetchPropertyById($id): ?Property
+    {
+        return $this->propertyRepo->getPropertyById($id);
+    }
+    public function fetchAmenitiesOfProperty(Property $property): array
+    {
+        $Property_amenities = [];
+        foreach ($property->amenities as $amenity) {
+            $Property_amenities[] = $amenity->id;
+        }
+        return $Property_amenities;
+    }
+    public function uploadCoverImageOfProperty(UploadedFile $cover, string $agentId): string
+    {
+        $CustomFileName =  Str::uuid() . '_cover.' . $cover->getClientOriginalExtension();
+        $coverPath = 'properties/' . 'agent_' . $agentId . '/covers';
+        $finalPath = $cover->storeAs($coverPath, $CustomFileName, 'public');
+        return '/uploads/' . $finalPath;
+    }
+    public function UpdateCoverImageOfProperty(UploadedFile $cover, string $agentId, string $PropertyId): string
+    {
+        $old_cover = $this->fetchPropertyById($PropertyId)->cover;
+        if (!empty($old_cover) && Str::startsWith($old_cover, '/uploads/')) {
+            // hint to delete item put path after upload folder
+            Storage::disk('public')->delete(Str::after($old_cover, '/uploads/'));
+        }
+        $CustomFileName =  Str::uuid() . '_cover.' . $cover->getClientOriginalExtension();
+        $coverPath = 'properties/' . 'agent_' . $agentId . '/covers';
+        $finalPath = $cover->storeAs($coverPath, $CustomFileName, 'public');
+        return '/uploads/' . $finalPath;
+    }
+    public function createProperty(array $data): Property
+    {
+        $agent = Auth::guard('agent')->user();
+        $data['agent_id'] = $agent->id;
+        if (isset($data['cover']) && $data['cover'] instanceof UploadedFile) {
+            $data['cover'] = $this->uploadCoverImageOfProperty($data['cover'], $agent->id);
+        }
+        $property = $this->propertyRepo->createProperty($data);
+        if (!empty($data['amenities'])) {
+            $property->amenities()->attach($data['amenities']);
+        }
+        return $property;
+    }
+    public function updateProperty(string $id, array $data): Property
+    {
+        $agent = Auth::guard('agent')->user();
+        if (isset($data['cover']) && $data['cover'] instanceof UploadedFile) {
+            $data['cover'] = $this->UpdateCoverImageOfProperty($data['cover'], $agent->id, $id);
+        }
+        $property = $this->propertyRepo->updateProperty($id, $data);
+        if (!empty($data['amenities'])) {
+            $property->amenities()->sync($data['amenities']);
+        } else {
+            $property->amenities()->sync([]);
+        }
+        return $property;
+    }
+    public function deleteProperty($id): bool
+    {
+        $property = $this->fetchPropertyById($id);
+        $is_deleted = $this->propertyRepo->deleteProperty($id);
+        if ($is_deleted && $property->cover && Str::startsWith($property->cover, '/uploads/')) {
+            Storage::disk('public')->delete(Str::after($property->cover, '/uploads/'));
+        }
+        return $is_deleted;
+    }
+}
