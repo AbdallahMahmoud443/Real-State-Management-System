@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\dashboard\DashboardAdminController;
 use App\Http\Controllers\Admin\dashboard\locations\LocationController;
 use App\Http\Controllers\Admin\dashboard\orders\OrderController;
 use App\Http\Controllers\Admin\dashboard\pricingPackages\PricingPackagesController;
+use App\Http\Controllers\Admin\dashboard\Properties\PropertyController as AdminPropertyController;
 use App\Http\Controllers\Admin\profile\AdminProfileController;
 use App\Http\Controllers\Admin\dashboard\Types\TypeController;
 use App\Http\Controllers\Admin\dashboard\Users\Agents\AgentController;
@@ -96,6 +97,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     // hint: Admin Dashboard Route (orders)
     Route::get('/orders', [OrderController::class, 'index'])->middleware('SystemUserLogoutAuth:admin,admin')->name('orders.index');
     Route::get('/orders/{id}/print', [OrderController::class, 'printInvoice'])->middleware('SystemUserLogoutAuth:admin,admin')->name('orders.printInvoice');
+    // hint: Admin Dashboard Route (Properties)
+    Route::get('/properties', [AdminPropertyController::class, 'ShowAllProperties'])->middleware('SystemUserLogoutAuth:admin,admin')->name('properties.index');
+    Route::get('/properties/{id}', [AdminPropertyController::class, 'ShowProperty'])->middleware('SystemUserLogoutAuth:admin,admin')->name('properties.show');
+    Route::get('/properties/update/{id}', [AdminPropertyController::class, 'updateState'])->middleware('SystemUserLogoutAuth:admin,admin')->name('properties.update');
 });
 // title: Users Routes
 Route::group(['prefix' => 'user', 'as' => 'user.'], function () {

@@ -21,7 +21,10 @@ class PropertyServices
     {
         return $this->propertyRepo->getPropertiesByAgentId($agentId);
     }
-
+    public function fetchAllProperties(): Collection
+    {
+        return $this->propertyRepo->getAllProperties();
+    }
     public function fetchPropertyById($id): ?Property
     {
         return $this->propertyRepo->getPropertyById($id);

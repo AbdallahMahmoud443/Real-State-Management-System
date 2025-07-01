@@ -12,9 +12,10 @@
                                 <tr>
                                     <th>SL</th>
                                     <th>Name</th>
+                                    <th>Cover</th>
                                     <th>Type</th>
                                     <th>Location</th>
-                                    <th>Status</th>
+                                    <th>Purpose</th>
                                     <th>Active?</th>
                                     <th class="w-100">Options</th>
                                     <th class="w-60">Action</th>
@@ -25,6 +26,9 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $property->title }}</td>
+                                        <td>
+                                            <img src='{{ asset($property->cover) }}' width="100" height="100" />
+                                        </td>
                                         <td>{{ $property->type->name }}</td>
                                         <td>{{ $property->location->name }}</td>
                                         <td>{{ $property->status }}</td>
