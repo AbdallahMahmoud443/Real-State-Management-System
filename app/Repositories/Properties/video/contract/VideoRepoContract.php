@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Collection;
 interface VideoRepoContract
 {
     /**
-     * Retrieve all videos.
+     * Retrieve all videos by slug of property.
      *
      * @return Collection<int, Video>
      */
-    public function getAllVideos(): Collection;
+    public function getAllVideosByPropertySlug(string $slug): Collection;
 
     /**
      * Retrieve a video by its ID.
@@ -30,14 +30,6 @@ interface VideoRepoContract
      */
     public function createVideo(array $data): Video;
 
-    /**
-     * Update an existing video.
-     *
-     * @param int $id The ID of the video to update.
-     * @param array<string, mixed> $data The data to update the video with.
-     * @return Video|null
-     */
-    public function updateVideo(int $id, array $data): ?Video;
 
     /**
      * Delete a video by its ID.

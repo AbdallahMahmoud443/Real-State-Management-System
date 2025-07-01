@@ -34,6 +34,10 @@ class PropertyServices
         }
         return $Property_amenities;
     }
+    public function fetchPropertyBySlug(string $slug): ?Property
+    {
+        return $this->propertyRepo->getPropertyBySlug($slug);
+    }
     public function uploadCoverImageOfProperty(UploadedFile $cover, string $agentId): string
     {
         $CustomFileName =  Str::uuid() . '_cover.' . $cover->getClientOriginalExtension();

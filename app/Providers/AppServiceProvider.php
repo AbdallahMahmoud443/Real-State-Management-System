@@ -33,10 +33,14 @@ use App\Repositories\Orders\contracts\OrderContract;
 use App\Repositories\Orders\OrderRepository;
 use App\Repositories\PricingPackages\contracts\PricingPackagesRepoContract;
 use App\Repositories\PricingPackages\PricingPackagesRepository;
+use App\Repositories\Properties\image_gallery\contract\ImagesGalleryRepoContract;
+use App\Repositories\Properties\image_gallery\ImagesGalleryRepo;
 use App\Repositories\Properties\property\contract\PropertyRepoContract;
 use App\Repositories\Properties\property\PropertyRepo;
 use App\Repositories\Properties\Types\contract\TypeContract;
 use App\Repositories\Properties\Types\TypeRepository;
+use App\Repositories\Properties\video\contract\VideoRepoContract;
+use App\Repositories\Properties\video\VideoRepo;
 use App\Repositories\Users\Agents\AgentsRepository;
 use App\Repositories\Users\Contracts\AgentsRepositoryContract;
 use App\Repositories\Users\Contracts\CustomersRepositoryContract;
@@ -44,6 +48,7 @@ use App\Repositories\Users\Customers\CustomersRepository;
 use App\Services\MultiGuardAuthentication\Contracts\RegisterEmailVerificationContract;
 use App\Services\MultiGuardAuthentication\Contracts\ResetPasswordEmailVerificationContract;
 use App\Services\MultiGuardAuthentication\Email_Verification\VerifyRegistration;
+
 use App\Services\MultiGuardAuthentication\Email_Verification\VerifyResetPassword;
 use Illuminate\Support\ServiceProvider;
 
@@ -87,6 +92,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CustomersRepositoryContract::class, CustomersRepository::class);
         // Property
         $this->app->bind(PropertyRepoContract::class, PropertyRepo::class);
+        // PhotosGallery
+        $this->app->bind(ImagesGalleryRepoContract::class, ImagesGalleryRepo::class);
+        // videos
+        $this->app->bind(VideoRepoContract::class, VideoRepo::class);
     }
 
     /**

@@ -37,9 +37,9 @@
 
                                         </td>
                                         <td>
-                                            <a href="user-photos.html"
+                                            <a href="{{ route('agent.properties.photos', $property->slug) }}"
                                                 class="btn btn-primary btn-sm btn-sm-custom w-100 mb_5">Photo Gallery</a>
-                                            <a href="user-videos.html"
+                                            <a href="{{ route('agent.properties.videos.show', $property->slug) }}"
                                                 class="btn btn-primary btn-sm btn-sm-custom w-100 mb_5">Video Gallery</a>
                                         </td>
                                         <td class="">

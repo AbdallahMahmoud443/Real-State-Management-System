@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Video extends Model
 {
     //
-    protected $fillable = ['video'];
+    protected $guarded = ['id'];
 
     public function property()
     {

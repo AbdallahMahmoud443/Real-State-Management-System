@@ -31,6 +31,13 @@ interface PropertyServicesContract
      */
     public function fetchPropertiesByAgentId(int $agentId): Collection;
     /**
+     * Fetch a property by its slug.
+     *
+     * @param string $slug The slug of the property.
+     * @return Property|null
+     */
+    public function fetchPropertyBySlug(string $slug): ?Property;
+    /**
      *  create Property
      * @param array $data valid data
      * @return Property

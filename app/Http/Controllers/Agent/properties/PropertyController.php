@@ -29,7 +29,6 @@ class PropertyController extends Controller
         $properties = $this->propertyServices->fetchPropertiesByAgentId(Auth::guard('agent')->user()->id);
         return view('agent.dashboard.property.index', compact('properties'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -41,7 +40,6 @@ class PropertyController extends Controller
         $amenities = $this->amenityServices->fetchAmenities();
         return view('agent.dashboard.property.create', compact('locations', 'types', 'amenities'));
     }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -76,7 +74,6 @@ class PropertyController extends Controller
         }
         return redirect()->route('agent.properties.index')->with('success', 'Property created successfully');
     }
-
     /**
      * Display the specified resource.
      */
@@ -84,7 +81,6 @@ class PropertyController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -97,7 +93,6 @@ class PropertyController extends Controller
         $property_amenities = $this->propertyServices->fetchAmenitiesOfProperty($property);
         return view('agent.dashboard.property.edit', compact('locations', 'types', 'amenities', 'property', 'property_amenities'));
     }
-
     /**
      * Update the specified resource in storage.
      */
@@ -131,7 +126,6 @@ class PropertyController extends Controller
         }
         return redirect()->route('agent.properties.index')->with('success', ' Property Updated Successfully');
     }
-
     /**
      * Remove the specified resource from storage.
      */

@@ -13,9 +13,9 @@ class VideoRepo implements VideoRepoContract
      *
      * @return Collection<int, Video>
      */
-    public function getAllVideos(): Collection
+    public function getAllVideosByPropertySlug(string $slug): Collection
     {
-        return Video::all();
+        return Video::where('slug', $slug)->orderBy('created_at', 'desc')->get();
     }
 
     /**
@@ -39,22 +39,6 @@ class VideoRepo implements VideoRepoContract
     {
         return Video::create($data);
     }
-
-    /**
-     * Update an existing video.
-     *
-     * @param int $id The ID of the video to update.
-     * @param array<string, mixed> $data The data to update the video with.
-     * @return Video|null
-     */
-    public function updateVideo(int $id, array $data): ?Video
-    {
-        $video = $this->getVideoById($id);
-        $video?->update($data);
-
-        return $video;
-    }
-
     /**
      * Delete a video by its ID.
      *

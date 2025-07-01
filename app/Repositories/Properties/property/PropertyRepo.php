@@ -72,4 +72,8 @@ class PropertyRepo implements PropertyRepoContract
     {
         return Property::where('agent_id', $id)->get();
     }
+    public function getPropertyBySlug(string $slug): ?Property
+    {
+        return Property::where('slug', $slug)->first();
+    }
 }

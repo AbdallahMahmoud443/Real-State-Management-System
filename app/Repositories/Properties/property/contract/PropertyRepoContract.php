@@ -55,4 +55,11 @@ interface PropertyRepoContract
      * @return Collection<int, Property>|null
      */
     public function getPropertiesByAgentId(int $id): ?Collection;
+    /**
+     * Retrieve a property by its slug.
+     *
+     * @param string $slug The slug of the property.
+     * @return Property
+     */
+    public function getPropertyBySlug(string $slug): ?Property;
 }

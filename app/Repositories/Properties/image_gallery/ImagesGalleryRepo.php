@@ -13,22 +13,14 @@ class ImagesGalleryRepo implements ImagesGalleryRepoContract
      *
      * @return Collection<int, ImagesGallery>
      */
-    public function getAllImageGalleries(): Collection
+    public function getAllImageGalleriesByPropertySlug(string $slug): Collection
     {
-        return ImagesGallery::all();
+        return ImagesGallery::where('slug', $slug)->orderBy('id', 'desc')->get();
     }
-
-    /**
-     * Retrieve an image gallery by its ID.
-     *
-     * @param int $id The ID of the image gallery.
-     * @return ImagesGallery|null
-     */
-    public function getImagesGalleryById(int $id): ?ImagesGallery
+    public function getImageGalleryById(string $id): ?ImagesGallery
     {
         return ImagesGallery::findOrFail($id);
     }
-
     /**
      * Create a new image gallery.
      *
@@ -39,29 +31,13 @@ class ImagesGalleryRepo implements ImagesGalleryRepoContract
     {
         return ImagesGallery::create($data);
     }
-
-    /**
-     * Update an existing image gallery.
-     *
-     * @param int $id The ID of the image gallery to update.
-     * @param array<string, mixed> $data The data to update the image gallery with.
-     * @return ImagesGallery|null
-     */
-    public function updateImagesGallery(int $id, array $data): ?ImagesGallery
-    {
-        $imagesGallery = $this->getImagesGalleryById($id);
-        $imagesGallery?->update($data);
-
-        return $imagesGallery;
-    }
-
     /**
      * Delete an image gallery by its ID.
      *
      * @param int $id The ID of the image gallery to delete.
      * @return bool
      */
-    public function deleteImagesGallery(int $id): bool
+    public function deleteImagesGallery(string $id): bool
     {
         return ImagesGallery::destroy($id) > 0;
     }

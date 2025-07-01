@@ -17,10 +17,11 @@ use App\Http\Controllers\Agent\auth\AgentResetPasswordController;
 use App\Http\Controllers\agent\dashboard\DashboardAgentController;
 use App\Http\Controllers\Agent\Invoice\InvoiceController;
 use App\Http\Controllers\Agent\Payments\paypalController;
-use App\Http\Controllers\Agent\Payments\PaypalController as PaymentsPaypalController;
 use App\Http\Controllers\Agent\Payments\stripeController;
 use App\Http\Controllers\Agent\profile\AgentUpdateProfileController;
+use App\Http\Controllers\Agent\properties\PhotoGalleryController;
 use App\Http\Controllers\Agent\properties\PropertyController;
+use App\Http\Controllers\Agent\properties\VideoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\frontend\FrontController;
 use App\Http\Controllers\User\auth\AuthenticationUserController;
@@ -183,4 +184,12 @@ Route::group(['prefix' => 'agent', 'as' => 'agent.'], function () {
     Route::get('/order/invoice/{order_id}', [InvoiceController::class, 'printInvoice'])->name('invoice.handle')->middleware('SystemUserLogoutAuth:agent,agent');;
     // hint: Route for Properties
     Route::resource('properties', PropertyController::class)->middleware('SystemUserLogoutAuth:agent,agent');
+    // hint: Routes for photo Gallery of properties
+    Route::get('properties/photos/{slug}', [PhotoGalleryController::class, 'showPhotos'])->middleware('SystemUserLogoutAuth:agent,agent')->name('properties.photos');
+    Route::post('properties/photos/{slug}', [PhotoGalleryController::class, 'uploadPhotos'])->middleware('SystemUserLogoutAuth:agent,agent')->name('properties.photos.upload');
+    Route::get('properties/photos/delete/{id}', [PhotoGalleryController::class, 'deletePhoto'])->middleware('SystemUserLogoutAuth:agent,agent')->name('properties.photos.delete');
+    // hint: Routes for videos of
+    Route::get('properties/videos/{slug}', [VideoController::class, 'showVideos'])->middleware('SystemUserLogoutAuth:agent,agent')->name('properties.videos.show');
+    Route::post('properties/videos/{slug}', [VideoController::class, 'addVideo'])->middleware('SystemUserLogoutAuth:agent,agent')->name('properties.videos.store');
+    Route::get('properties/videos/delete/{id}', [VideoController::class, 'deleteVideo'])->middleware('SystemUserLogoutAuth:agent,agent')->name('properties.videos.delete');
 });
