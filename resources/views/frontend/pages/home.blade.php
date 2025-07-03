@@ -81,258 +81,57 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="item">
-                        <div class="photo">
-                            <img class="main" src="{{ asset('assets/frontend/uploads/properties/property1.jpg') }}"
-                                alt="">
-                            <div class="top">
-                                <div class="status-sale">
-                                    For Sale
+                @foreach ($properties as $property)
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="item">
+                            <div class="photo">
+                                <img class="main" src="{{ asset($property->cover) }}" alt="">
+                                <div class="top">
+                                    <div class="status-sale">
+                                        {{ $property->status }}
+                                    </div>
+                                    <div class="featured">
+                                        @if ($property->is_featured == 1)
+                                            Featured
+                                        @else
+                                            No Featured
+                                        @endif
+                                    </div>
                                 </div>
-                                <div class="featured">
-                                    Featured
-                                </div>
+                                <div class="price">${{ $property->price }}</div>
+                                <div class="wishlist"><a href=""><i class="far fa-heart"></i></a></div>
                             </div>
-                            <div class="price">$56,000</div>
-                            <div class="wishlist"><a href=""><i class="far fa-heart"></i></a></div>
-                        </div>
-                        <div class="text">
-                            <h3><a href="property.html">Sea Side Property</a></h3>
-                            <div class="detail">
-                                <div class="stat">
-                                    <div class="i1">2500 sqft</div>
-                                    <div class="i2">2 Bed</div>
-                                    <div class="i3">2 Bath</div>
-                                </div>
-                                <div class="address">
-                                    <i class="fas fa-map-marker-alt"></i> 937 Jamajo Blvd, Orlando FL 32803
-                                </div>
-                                <div class="type-location">
-                                    <div class="i1">
-                                        <i class="fas fa-edit"></i> Villa
+                            <div class="text">
+                                <h3><a href="property.html">{{ $property->title }}</a></h3>
+                                <div class="detail">
+                                    <div class="stat">
+                                        <div class="i1">{{ $property->size }} sqft</div>
+                                        <div class="i2">{{ $property->bedrooms }} Bed</div>
+                                        <div class="i3">{{ $property->bathrooms }} Bath</div>
                                     </div>
-                                    <div class="i2">
-                                        <i class="fas fa-location-arrow"></i> Orland
+                                    <div class="address">
+                                        <i class="fas fa-map-marker-alt"></i> {{ $property->address }}
                                     </div>
-                                </div>
-                                <div class="agent-section">
-                                    <img class="agent-photo" src="{{ asset('assets/frontend/uploads/agents/agent1.jpg') }}"
-                                        alt="">
-                                    <a href="">Robert Johnson (AA Property)</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="item">
-                        <div class="photo">
-                            <img class="main" src="{{ asset('assets/frontend/uploads/properties/property2.jpg') }}"
-                                alt="">
-                            <div class="top">
-                                <div class="status-rent">
-                                    For Rent
-                                </div>
-                                <div class="featured">
-                                    Featured
-                                </div>
-                            </div>
-                            <div class="price">$4,900</div>
-                            <div class="wishlist"><a href=""><i class="far fa-heart"></i></a></div>
-                        </div>
-                        <div class="text">
-                            <h3><a href="property.html">Modern Villa</a></h3>
-                            <div class="detail">
-                                <div class="stat">
-                                    <div class="i1">2500 sqft</div>
-                                    <div class="i2">2 Bed</div>
-                                    <div class="i3">2 Bath</div>
-                                </div>
-                                <div class="address">
-                                    <i class="fas fa-map-marker-alt"></i> 2006 E Central Blvd, Orlando FL 32803
-                                </div>
-                                <div class="type-location">
-                                    <div class="i1">
-                                        <i class="fas fa-edit"></i> Condo
+                                    <div class="type-location">
+                                        <div class="i1">
+                                            <i class="fas fa-edit"></i> {{ $property->type->name }}
+                                        </div>
+                                        <div class="i2">
+                                            <i class="fas fa-location-arrow"></i> {{ $property->location->name }}
+                                        </div>
                                     </div>
-                                    <div class="i2">
-                                        <i class="fas fa-location-arrow"></i> Orland
+                                    <div class="agent-section">
+                                        <img class="agent-photo" src="{{ asset($property->agent->photo) }}" alt="">
+                                        <a href="">{{ $property->agent->name }} ({{ $property->agent->company }})
+                                            Company</a>
                                     </div>
-                                </div>
-                                <div class="agent-section">
-                                    <img class="agent-photo"
-                                        src="{{ asset('assets/frontend/uploads/agents/agent2.jpg') }}" alt="">
-                                    <a href="">Eric Williams (BB Property)</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="item">
-                        <div class="photo">
-                            <img class="main" src="{{ asset('assets/frontend/uploads/properties/property3.jpg') }}"
-                                alt="">
-                            <div class="top">
-                                <div class="status-sale">
-                                    For Sale
-                                </div>
-                            </div>
-                            <div class="price">$79,000</div>
-                            <div class="wishlist"><a href=""><i class="far fa-heart"></i></a></div>
-                        </div>
-                        <div class="text">
-                            <h3><a href="property.html">Home with Swimming Pool</a></h3>
-                            <div class="detail">
-                                <div class="stat">
-                                    <div class="i1">2500 sqft</div>
-                                    <div class="i2">2 Bed</div>
-                                    <div class="i3">2 Bath</div>
-                                </div>
-                                <div class="address">
-                                    <i class="fas fa-map-marker-alt"></i> 3152 Plaza Terrace, Orlando FL 32803
-                                </div>
-                                <div class="type-location">
-                                    <div class="i1">
-                                        <i class="fas fa-edit"></i> Apartment
-                                    </div>
-                                    <div class="i2">
-                                        <i class="fas fa-location-arrow"></i> New York
-                                    </div>
-                                </div>
-                                <div class="agent-section">
-                                    <img class="agent-photo"
-                                        src="{{ asset('assets/frontend/uploads/agents/agent3.jpg') }}" alt="">
-                                    <a href="">Brent Grundy (CC Property)</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="item">
-                        <div class="photo">
-                            <img class="main" src="{{ asset('assets/frontend/uploads/properties/property4.jpg') }}"
-                                alt="">
-                            <div class="top">
-                                <div class="status-sale">
-                                    For Sale
-                                </div>
-                            </div>
-                            <div class="price">$79,000</div>
-                            <div class="wishlist"><a href=""><i class="far fa-heart"></i></a></div>
-                        </div>
-                        <div class="text">
-                            <h3><a href="property.html">Apartment in New York</a></h3>
-                            <div class="detail">
-                                <div class="stat">
-                                    <div class="i1">2500 sqft</div>
-                                    <div class="i2">2 Bed</div>
-                                    <div class="i3">2 Bath</div>
-                                </div>
-                                <div class="address">
-                                    <i class="fas fa-map-marker-alt"></i> 3152 Plaza Terrace, Orlando FL 32803
-                                </div>
-                                <div class="type-location">
-                                    <div class="i1">
-                                        <i class="fas fa-edit"></i> Apartment
-                                    </div>
-                                    <div class="i2">
-                                        <i class="fas fa-location-arrow"></i> New York
-                                    </div>
-                                </div>
-                                <div class="agent-section">
-                                    <img class="agent-photo"
-                                        src="{{ asset('assets/frontend/uploads/agents/agent4.jpg') }}" alt="">
-                                    <a href="">Jason Schwartz (DD Property)</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="item">
-                        <div class="photo">
-                            <img class="main" src="{{ asset('assets/frontend/uploads/properties/property5.jpg') }}"
-                                alt="">
-                            <div class="top">
-                                <div class="status-sale">
-                                    For Sale
-                                </div>
-                            </div>
-                            <div class="price">$79,000</div>
-                            <div class="wishlist"><a href=""><i class="far fa-heart"></i></a></div>
-                        </div>
-                        <div class="text">
-                            <h3><a href="property.html">Nice Condo in Orlando</a></h3>
-                            <div class="detail">
-                                <div class="stat">
-                                    <div class="i1">2500 sqft</div>
-                                    <div class="i2">2 Bed</div>
-                                    <div class="i3">2 Bath</div>
-                                </div>
-                                <div class="address">
-                                    <i class="fas fa-map-marker-alt"></i> 3152 Plaza Terrace, Orlando FL 32803
-                                </div>
-                                <div class="type-location">
-                                    <div class="i1">
-                                        <i class="fas fa-edit"></i> Apartment
-                                    </div>
-                                    <div class="i2">
-                                        <i class="fas fa-location-arrow"></i> New York
-                                    </div>
-                                </div>
-                                <div class="agent-section">
-                                    <img class="agent-photo"
-                                        src="{{ asset('assets/frontend/uploads/agents/agent5.jpg') }}" alt="">
-                                    <a href="">Michael Wyatt (EE Property)</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="item">
-                        <div class="photo">
-                            <img class="main" src="{{ asset('assets/frontend/uploads/properties/property6.jpg') }}"
-                                alt="">
-                            <div class="top">
-                                <div class="status-sale">
-                                    For Sale
-                                </div>
-                            </div>
-                            <div class="price">$79,000</div>
-                            <div class="wishlist"><a href=""><i class="far fa-heart"></i></a></div>
-                        </div>
-                        <div class="text">
-                            <h3><a href="property.html">Nice Villa in Boston</a></h3>
-                            <div class="detail">
-                                <div class="stat">
-                                    <div class="i1">2500 sqft</div>
-                                    <div class="i2">2 Bed</div>
-                                    <div class="i3">2 Bath</div>
-                                </div>
-                                <div class="address">
-                                    <i class="fas fa-map-marker-alt"></i> 3152 Plaza Terrace, Orlando FL 32803
-                                </div>
-                                <div class="type-location">
-                                    <div class="i1">
-                                        <i class="fas fa-edit"></i> Apartment
-                                    </div>
-                                    <div class="i2">
-                                        <i class="fas fa-location-arrow"></i> New York
-                                    </div>
-                                </div>
-                                <div class="agent-section">
-                                    <img class="agent-photo"
-                                        src="{{ asset('assets/frontend/uploads/agents/agent6.jpg') }}" alt="">
-                                    <a href="">Joshua Lash (FF Property)</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+
+
 
             </div>
         </div>

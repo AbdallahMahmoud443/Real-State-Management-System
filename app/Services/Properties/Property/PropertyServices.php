@@ -41,6 +41,10 @@ class PropertyServices
     {
         return $this->propertyRepo->getPropertyBySlug($slug);
     }
+    public function fetchSomeOfProperties(int $limit): Collection
+    {
+        return $this->propertyRepo->getSomeOfProperties($limit);
+    }
     public function uploadCoverImageOfProperty(UploadedFile $cover, string $agentId): string
     {
         $CustomFileName =  Str::uuid() . '_cover.' . $cover->getClientOriginalExtension();

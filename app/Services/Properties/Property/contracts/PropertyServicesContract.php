@@ -16,6 +16,7 @@ interface PropertyServicesContract
      * @return Collection<int, Property>
      */
     public function getAllProperties(): Collection;
+
     /**
      * Retrieve a property by its ID.
      *
@@ -37,6 +38,13 @@ interface PropertyServicesContract
      * @return Property|null
      */
     public function fetchPropertyBySlug(string $slug): ?Property;
+    /**
+     * Fetch a limited number of properties.
+     *
+     * @param int $limit The maximum number of properties to fetch.
+     * @return Collection<int, Property>
+     */
+    public function fetchSomeOfProperties(int $limit): Collection;
     /**
      *  create Property
      * @param array $data valid data

@@ -18,7 +18,16 @@ class PropertyRepo implements PropertyRepoContract
     {
         return Property::all();
     }
-
+    /**
+     * Retrieve a limited number of properties.
+     *
+     * @param int $limit The maximum number of properties to retrieve.
+     * @return Collection<int, Property>    
+     */
+    public function getSomeOfProperties(int $limit): Collection
+    {
+        return Property::where('is_active', '1')->orderBy('id', 'desc')->limit($limit)->get();
+    }
     /**
      * Retrieve a property by its ID.
      *

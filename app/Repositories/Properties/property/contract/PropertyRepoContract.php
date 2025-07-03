@@ -22,7 +22,13 @@ interface PropertyRepoContract
      * @return Property|null
      */
     public function getPropertyById(int $id): ?Property;
-
+    /**
+     * Retrieve a limited number of properties.
+     *
+     * @param int $limit The maximum number of properties to retrieve.
+     * @return Collection<int, Property>
+     */
+    public function getSomeOfProperties(int $limit): Collection;
     /**
      * Create a new property.
      *
