@@ -2,11 +2,13 @@
 
 namespace App\Services\Properties\Property;
 
+use App\Mail\EnquiryProperty;
 use App\Models\Property;
 use App\Repositories\Properties\property\contract\PropertyRepoContract;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -45,6 +47,11 @@ class PropertyServices
     {
         return $this->propertyRepo->getSomeOfProperties($limit);
     }
+    public function fetchRelatedPropertiesByType(string $type, string $slug, int $limit): Collection
+    {
+        return $this->propertyRepo->getRelatedPropertiesByType($type, $slug, $limit);
+    }
+
     public function uploadCoverImageOfProperty(UploadedFile $cover, string $agentId): string
     {
         $CustomFileName =  Str::uuid() . '_cover.' . $cover->getClientOriginalExtension();
@@ -99,5 +106,13 @@ class PropertyServices
             Storage::disk('public')->delete(Str::after($property->cover, '/uploads/'));
         }
         return $is_deleted;
+    }
+    public function sendEnquiryMail(array $data, string $slug)
+    {
+        $property = $this->fetchPropertyBySlug($slug);
+        $agentMail = $property->agent->email;
+        $message = Mail::to($agentMail)->send(new EnquiryProperty($data,  $property));
+        if ($message != null) return true;
+        return false;
     }
 }

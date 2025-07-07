@@ -50,7 +50,16 @@ interface PropertyServicesContract
      * @param array $data valid data
      * @return Property
      */
+
     public function createProperty(array $data): Property;
+    /**
+     * Fetch related properties by type and slug.
+     *
+     * @param string $type The type of the related properties.
+     * @param string $slug The slug of the property.
+     * @return Collection<int, Property>
+     */
+    public function fetchRelatedPropertiesByType(string $type, string $slug, int $limit): Collection;
     /**
      * Update an existing property.
      *

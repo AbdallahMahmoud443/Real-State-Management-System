@@ -22,7 +22,7 @@ class PropertyRepo implements PropertyRepoContract
      * Retrieve a limited number of properties.
      *
      * @param int $limit The maximum number of properties to retrieve.
-     * @return Collection<int, Property>    
+     * @return Collection<int, Property>
      */
     public function getSomeOfProperties(int $limit): Collection
     {
@@ -81,8 +81,18 @@ class PropertyRepo implements PropertyRepoContract
     {
         return Property::where('agent_id', $id)->get();
     }
+    /**
+     *
+     */
     public function getPropertyBySlug(string $slug): ?Property
     {
         return Property::where('slug', $slug)->first();
+    }
+    public function getRelatedPropertiesByType(string $type, string $slug, int $limit): ?Collection
+    {
+        return Property::where('type_id', $type)
+            ->where('is_active', '1')
+            ->where('slug', '!=', $slug)
+            ->limit($limit)->get();
     }
 }

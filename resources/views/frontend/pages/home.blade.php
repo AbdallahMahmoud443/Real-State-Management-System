@@ -102,7 +102,8 @@
                                 <div class="wishlist"><a href=""><i class="far fa-heart"></i></a></div>
                             </div>
                             <div class="text">
-                                <h3><a href="property.html">{{ $property->title }}</a></h3>
+                                <h3><a href="{{ route('property.details', $property->slug) }}">{{ $property->title }}</a>
+                                </h3>
                                 <div class="detail">
                                     <div class="stat">
                                         <div class="i1">{{ $property->size }} sqft</div>
@@ -114,7 +115,7 @@
                                     </div>
                                     <div class="type-location">
                                         <div class="i1">
-                                            <i class="fas fa-edit"></i> {{ $property->type->name }}
+                                            <i class="fas fa-edit"></i> {{ $property->types->name }}
                                         </div>
                                         <div class="i2">
                                             <i class="fas fa-location-arrow"></i> {{ $property->location->name }}

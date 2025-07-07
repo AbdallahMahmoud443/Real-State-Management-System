@@ -36,6 +36,8 @@ Route::get('/', [FrontController::class, 'index'])->name('home');
 Route::get('/contact', [FrontController::class, 'contact'])->name('contact');
 Route::get('/pricing', [FrontController::class, 'pricing'])->name('pricing');
 Route::get('/location', [FrontController::class, 'location'])->name('location');
+Route::get('/property/{slug}', [FrontController::class, 'propertyDetails'])->name('property.details');
+Route::post('/enquery/property/{slug}', [FrontController::class, 'enquiryFormHandle'])->name('enquery.form.handle');
 
 // title: Admin Routes
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {

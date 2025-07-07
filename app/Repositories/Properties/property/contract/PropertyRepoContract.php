@@ -68,4 +68,10 @@ interface PropertyRepoContract
      * @return Property
      */
     public function getPropertyBySlug(string $slug): ?Property;
+    /**
+     * retrieve related property based on type
+     *@param string $type
+     * @return Collection<int, Property>
+     */
+    public function getRelatedPropertiesByType(string $type, string $slug, int $limit): ?Collection;
 }

@@ -19,10 +19,6 @@ class Property extends Model
     {
         return $this->belongsTo(Location::class);
     }
-    public function type()
-    {
-        return $this->belongsTo(Type::class);
-    }
     public function amenities()
     {
         return $this->belongsToMany(Amenity::class);
@@ -34,5 +30,9 @@ class Property extends Model
     public function videos()
     {
         return $this->hasMany(Video::class);
+    }
+    public function types()
+    {
+        return $this->belongsTo(Type::class, 'type_id', 'id');
     }
 }
