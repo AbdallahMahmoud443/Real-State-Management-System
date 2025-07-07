@@ -4,6 +4,8 @@ namespace App\Services\Properties\Locations;
 
 use App\Repositories\Properties\Locations\contracts\locationsContract;
 use App\Services\Properties\Locations\contracts\LocationServiceContract;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -19,6 +21,18 @@ class LocationService implements LocationServiceContract
     public function fetchOneLocation(int $id)
     {
         return $this->locationsContractRepo->fetchOne($id);
+    }
+    public function fetchLocationsWithPropertiesCount(): Collection
+    {
+        return $this->locationsContractRepo->fetchLocationWithPropertiesCount();
+    }
+    public function fetchLocationBySlug(string $slug): Model
+    {
+        return $this->locationsContractRepo->fetchLocationBySlug($slug);
+    }
+    public function fetchSomeLocations(int $limit): Collection
+    {
+        return $this->locationsContractRepo->fetchSomeLocation($limit);
     }
     public function createLocation(array $data)
     {

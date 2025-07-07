@@ -4,7 +4,7 @@ namespace App\Http\controllers\frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Models\Location;
 use App\Services\Properties\Locations\LocationService;
 use App\Services\PricingPackages\PricingPackagesService;
 use App\Services\Properties\Property\PropertyServices;
@@ -22,7 +22,8 @@ class FrontController extends Controller
     public function index()
     {
         $properties = $this->propertyServices->fetchSomeOfProperties(6);
-        return view('frontend.pages.home', compact('properties'));
+        $locations = $this->locationService->fetchSomeLocations(8);
+        return view('frontend.pages.home', compact('properties', 'locations'));
     }
     public function contact()
     {
@@ -35,14 +36,20 @@ class FrontController extends Controller
     }
     public function location()
     {
-        $locations = $this->locationService->fetchLocations();
+        // hint: write code to get number of properties in each location
+        $locations = $this->locationService->fetchLocationsWithPropertiesCount();
         return view('frontend.pages.location', compact('locations'));
     }
-
+    public function propertiesByLocation(string $slug)
+    {
+        $location = $this->locationService->fetchLocationBySlug($slug);
+        $properties = $this->propertyServices->fetchRelatedPropertiesByLocation($location->id, 3);
+        return view('frontend.pages.properties_location', compact('location', 'properties'));
+    }
     public function propertyDetails(string $slug)
     {
         $property = $this->propertyServices->fetchPropertyBySlug($slug);
-    
+
         $relatedProperties = $this->propertyServices->fetchRelatedPropertiesByType($property->types->id, $property->slug, 2);
 
         return view('frontend.pages.property-details', compact('property', 'relatedProperties'));

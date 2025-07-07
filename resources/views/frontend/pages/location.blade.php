@@ -10,11 +10,13 @@
                         <div class="col-lg-3 col-md-4 col-sm-6">
                             <div class="item">
                                 <div class="photo">
-                                    <a href="location.html"><img src="{{ asset($item->photo) }}" alt=""></a>
+                                    <a href="{{ route('location.properties', $item->slug) }}"><img
+                                            src="{{ asset($item->photo) }}" alt=""></a>
                                 </div>
                                 <div class="text">
-                                    <h2><a href="location.html">{{ $item->name }}</a></h2>
-                                    <h4>({{ $item->total_properties }} Properties)</h4>
+                                    <h2><a href="{{ route('location.properties', $item->slug) }}">{{ $item->name }}</a>
+                                    </h2>
+                                    <h4>({{ $item->properties_count }} Properties)</h4>
                                 </div>
                             </div>
                         </div>

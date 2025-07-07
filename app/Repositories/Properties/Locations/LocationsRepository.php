@@ -5,48 +5,39 @@ namespace App\Repositories\Properties\Locations;
 use App\Models\Location;
 
 use App\Repositories\Properties\Locations\contracts\locationsContract;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class LocationsRepository  implements locationsContract
 {
-    /**
-     * Get all pricing packages
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
     public function fetchALL()
     {
         return Location::all();
     }
-
-    /**
-     * Get all pricing packages
-     * @param int $id
-     * @return \Illuminate\Database\Eloquent\Model
-     */
     public function fetchOne(int $id)
     {
         return Location::findOrFail($id);
     }
-    /**
-     * Create a new pricing package
-     *
-     * @param array $data
-     * @return \App\Models\Locations
-     */
-
+    public function fetchLocationWithPropertiesCount(): Collection
+    {
+        return Location::withCount(['properties' => function ($query) {
+            $query->where('is_active', 1);
+        }])->orderBy('properties_count', 'desc')->get();
+    }
+    public function fetchLocationBySlug(string $slug): Model
+    {
+        return Location::where('slug', $slug)->first();
+    }
+    public function fetchSomeLocation(int $limit): Collection
+    {
+        return Location::withCount(['properties' => function ($query) {
+            $query->where('is_active', 1);
+        }])->limit($limit)->orderBy('properties_count', 'desc')->get();
+    }
     public function create(array $data)
     {
         return Location::create($data);
     }
-
-    /**
-     * Update a pricing package
-     *
-     * @param int $id
-     * @param array $data
-     * @return \App\Models\PricingPackage
-     */
     public function update(int $id, array $data)
     {
         $location = $this->fetchOne($id);
@@ -54,22 +45,11 @@ class LocationsRepository  implements locationsContract
         return $location;
     }
 
-    /**
-     * Delete a pricing package
-     *
-     * @param int $id
-     * @return bool
-     */
     public function delete(int $id)
     {
         $location = $this->fetchOne($id);
         return $location->delete();
     }
-    /**
-     * upload image
-     *  @param array $image
-     * @return void
-     */
     public function UploadImage(array $image, Model $location): void
     {
         $location->photo = $image['path'];

@@ -29,7 +29,7 @@
                                         <td>
                                             <img src='{{ asset($property->cover) }}' width="100" height="100" />
                                         </td>
-                                        <td>{{ $property->type->name }}</td>
+                                        <td>{{ $property->types->name }}</td>
                                         <td>{{ $property->location->name }}</td>
                                         <td>{{ $property->status }}</td>
                                         <td>

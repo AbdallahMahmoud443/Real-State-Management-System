@@ -5,7 +5,7 @@ namespace App\Repositories\Properties\property;
 use App\Models\Property;
 use App\Repositories\Properties\property\contract\PropertyRepoContract;
 use Illuminate\Database\Eloquent\Collection;
-
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class PropertyRepo implements PropertyRepoContract
 {
@@ -26,7 +26,11 @@ class PropertyRepo implements PropertyRepoContract
      */
     public function getSomeOfProperties(int $limit): Collection
     {
-        return Property::where('is_active', '1')->orderBy('id', 'desc')->limit($limit)->get();
+        return Property::with(['types', 'location', 'agent'])
+            ->where('is_active', '1')
+            ->orderBy('id', 'desc')
+            ->limit($limit)
+            ->get();
     }
     /**
      * Retrieve a property by its ID.
@@ -38,7 +42,6 @@ class PropertyRepo implements PropertyRepoContract
     {
         return Property::findOrFail($id);
     }
-
     /**
      * Create a new property.
      *
@@ -49,7 +52,6 @@ class PropertyRepo implements PropertyRepoContract
     {
         return Property::create($data);
     }
-
     /**
      * Update an existing property.
      *
@@ -65,7 +67,6 @@ class PropertyRepo implements PropertyRepoContract
         }
         return $property;
     }
-
     /**
      * Delete a property by its ID.
      *
@@ -76,14 +77,10 @@ class PropertyRepo implements PropertyRepoContract
     {
         return Property::destroy($id) > 0;
     }
-
     public function getPropertiesByAgentId(int $id): ?Collection
     {
         return Property::where('agent_id', $id)->get();
     }
-    /**
-     *
-     */
     public function getPropertyBySlug(string $slug): ?Property
     {
         return Property::where('slug', $slug)->first();
@@ -94,5 +91,13 @@ class PropertyRepo implements PropertyRepoContract
             ->where('is_active', '1')
             ->where('slug', '!=', $slug)
             ->limit($limit)->get();
+    }
+    public function getRelatedPropertiesByLocation(string $location_id, int $pageSize): LengthAwarePaginator
+    {
+        return Property::with(['types', 'location', 'agent'])
+            ->where('location_id', $location_id)
+            ->where('is_active', '1')
+            ->orderBy('id', 'desc')
+            ->paginate($pageSize);
     }
 }

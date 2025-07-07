@@ -50,6 +50,9 @@ use App\Services\MultiGuardAuthentication\Contracts\ResetPasswordEmailVerificati
 use App\Services\MultiGuardAuthentication\Email_Verification\VerifyRegistration;
 
 use App\Services\MultiGuardAuthentication\Email_Verification\VerifyResetPassword;
+use Illuminate\Pagination\Paginator;
+
+
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -104,5 +107,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+        Paginator::useBootstrapFive();
     }
 }

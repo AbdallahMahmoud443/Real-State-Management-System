@@ -2,11 +2,13 @@
 
 namespace App\Services\Properties\Property;
 
+use App\Services\Properties\Property\contracts\PropertyServicesContract;
 use App\Mail\EnquiryProperty;
 use App\Models\Property;
 use App\Repositories\Properties\property\contract\PropertyRepoContract;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -14,7 +16,7 @@ use Illuminate\Support\Str;
 
 
 
-class PropertyServices
+class PropertyServices implements PropertyServicesContract
 {
 
     public function __construct(protected PropertyRepoContract $propertyRepo) {}
@@ -51,12 +53,15 @@ class PropertyServices
     {
         return $this->propertyRepo->getRelatedPropertiesByType($type, $slug, $limit);
     }
-
+    public function fetchRelatedPropertiesByLocation(string $location_id, int $pageSize): LengthAwarePaginator
+    {
+        return $this->propertyRepo->getRelatedPropertiesByLocation($location_id, $pageSize);
+    }
     public function uploadCoverImageOfProperty(UploadedFile $cover, string $agentId): string
     {
-        $CustomFileName =  Str::uuid() . '_cover.' . $cover->getClientOriginalExtension();
+        $CustomFileName =  Str::uuid() . '_cover.' . $cover->extension();
         $coverPath = 'properties/' . 'agent_' . $agentId . '/covers';
-        $finalPath = $cover->storeAs($coverPath, $CustomFileName, 'public');
+        $finalPath = Storage::disk('public')->putFileAs($coverPath, $cover, $CustomFileName);
         return '/uploads/' . $finalPath;
     }
     public function UpdateCoverImageOfProperty(UploadedFile $cover, string $agentId, string $PropertyId): string
@@ -66,9 +71,9 @@ class PropertyServices
             // hint to delete item put path after upload folder
             Storage::disk('public')->delete(Str::after($old_cover, '/uploads/'));
         }
-        $CustomFileName =  Str::uuid() . '_cover.' . $cover->getClientOriginalExtension();
+        $CustomFileName =  Str::uuid() . '_cover.' . $cover->extension();
         $coverPath = 'properties/' . 'agent_' . $agentId . '/covers';
-        $finalPath = $cover->storeAs($coverPath, $CustomFileName, 'public');
+        $finalPath = Storage::disk('public')->putFileAs($coverPath, $cover, $CustomFileName);
         return '/uploads/' . $finalPath;
     }
     public function createProperty(array $data): Property

@@ -4,7 +4,7 @@ namespace App\Repositories\Properties\property\contract;
 
 use App\Models\Property;
 use Illuminate\Database\Eloquent\Collection;
-
+use Illuminate\Pagination\LengthAwarePaginator;
 
 interface PropertyRepoContract
 {
@@ -74,4 +74,11 @@ interface PropertyRepoContract
      * @return Collection<int, Property>
      */
     public function getRelatedPropertiesByType(string $type, string $slug, int $limit): ?Collection;
+    /**
+     * retrieve related property based on location
+     * @param string $location_id The ID of the location.
+     * @param int $pageSize The number of items per page.
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function getRelatedPropertiesByLocation(string $location_id, int $pageSize): LengthAwarePaginator;
 }

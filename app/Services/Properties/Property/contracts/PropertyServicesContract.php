@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Repositories\Properties\property\contract;
+namespace App\Services\Properties\Property\contracts;
 
 use App\Models\Property;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\File;
 
 
@@ -15,7 +16,7 @@ interface PropertyServicesContract
      * Retrieve all properties.
      * @return Collection<int, Property>
      */
-    public function getAllProperties(): Collection;
+    public function fetchAllProperties(): Collection;
 
     /**
      * Retrieve a property by its ID.
@@ -61,13 +62,22 @@ interface PropertyServicesContract
      */
     public function fetchRelatedPropertiesByType(string $type, string $slug, int $limit): Collection;
     /**
+     * Fetch related properties by location.
+     *
+     * @param string $location_id The ID of the location.
+     * @param int $pageSize The number of items per page.
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function fetchRelatedPropertiesByLocation(string $location_id, int $pageSize): LengthAwarePaginator;
+
+    /**
      * Update an existing property.
      *
      * @param int $id The ID of the property to update.
      * @param array $data The data to update the property with.
      * @return bool
      */
-    public function updateProperty($id, $data): bool;
+    public function updateProperty(string $id, array $data): Property;
     /**
      * Delete an existing property.
      *
