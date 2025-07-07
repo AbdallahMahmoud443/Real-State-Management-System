@@ -205,111 +205,24 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-3">
-                    <div class="item">
-                        <div class="photo">
-                            <a href=""><img src="{{ asset('assets/frontend/uploads/agents/agent1.jpg') }}"
-                                    alt=""></a>
-                        </div>
-                        <div class="text">
-                            <h2>
-                                <a href="agent.html">Michael Wyatt</a>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3">
-                    <div class="item">
-                        <div class="photo">
-                            <a href=""><img src="{{ asset('assets/frontend/uploads/agents/agent2.jpg') }}"
-                                    alt=""></a>
-                        </div>
-                        <div class="text">
-                            <h2>
-                                <a href="agent.html">Jason Schwartz</a>
-                            </h2>
+            <div class="row d-flex justify-content-center">
+                @foreach ($agents as $agent)
+                    <div class="col-lg-3 col-md-3">
+                        <div class="item">
+                            <div class="photo">
+                                <a href="{{ route('agents.details', $agent->id) }}"><img
+                                        src="{{ asset($agent->photo) }}" alt=""></a>
+                            </div>
+                            <div class="text">
+                                <h2>
+                                    <a href="agent.html">{{ $agent->name }}</a>
+                                </h2>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-3">
-                    <div class="item">
-                        <div class="photo">
-                            <a href=""><img src="{{ asset('assets/frontend/uploads/agents/agent3.jpg') }}"
-                                    alt=""></a>
-                        </div>
-                        <div class="text">
-                            <h2>
-                                <a href="agent.html">Joshua Lash</a>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3">
-                    <div class="item">
-                        <div class="photo">
-                            <a href=""><img src="{{ asset('assets/frontend/uploads/agents/agent4.jpg') }}"
-                                    alt=""></a>
-                        </div>
-                        <div class="text">
-                            <h2>
-                                <a href="agent.html">Eric Williams</a>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3">
-                    <div class="item">
-                        <div class="photo">
-                            <a href=""><img src="{{ asset('assets/frontend/uploads/agents/agent5.jpg') }}"
-                                    alt=""></a>
-                        </div>
-                        <div class="text">
-                            <h2>
-                                <a href="agent.html">Jay Smith</a>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3">
-                    <div class="item">
-                        <div class="photo">
-                            <a href=""><img src="{{ asset('assets/frontend/uploads/agents/agent6.jpg') }}"
-                                    alt=""></a>
-                        </div>
-                        <div class="text">
-                            <h2>
-                                <a href="agent.html">Joseph Commons</a>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3">
-                    <div class="item">
-                        <div class="photo">
-                            <a href=""><img src="{{ asset('assets/frontend/uploads/agents/agent7.jpg') }}"
-                                    alt=""></a>
-                        </div>
-                        <div class="text">
-                            <h2>
-                                <a href="agent.html">Richard Renner</a>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3">
-                    <div class="item">
-                        <div class="photo">
-                            <a href=""><img src="{{ asset('assets/frontend/uploads/agents/agent7.jpg') }}"
-                                    alt=""></a>
-                        </div>
-                        <div class="text">
-                            <h2>
-                                <a href="agent.html">Ryan Dingle</a>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+
+
             </div>
         </div>
     </div>

@@ -3,6 +3,8 @@
 namespace App\Services\Users\Agents;
 
 use App\Repositories\Users\Contracts\AgentsRepositoryContract;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AgentServices
 {
@@ -29,7 +31,14 @@ class AgentServices
     {
         return $this->agentsRepository->fetchOne($agentId);
     }
-
+    public function fetchSomeAgent(int $limit): Collection
+    {
+        return $this->agentsRepository->fetchSomeAgent($limit);
+    }
+    public function fetchAllAgentsWithPaginate(int $pageSize): LengthAwarePaginator
+    {
+        return $this->agentsRepository->fetchAllAgentsWithPaginate($pageSize);
+    }
     /**
      * Update agent information.
      *

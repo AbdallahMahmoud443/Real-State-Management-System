@@ -69,7 +69,14 @@ interface PropertyServicesContract
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public function fetchRelatedPropertiesByLocation(string $location_id, int $pageSize): LengthAwarePaginator;
-
+    /**
+     * Fetch related properties by agent.
+     *
+     * @param string $agent_id The ID of the agent.
+     * @param int $limit The maximum number of related properties to fetch.
+     * @return Collection<int, Property>
+     */
+    public function fetchRelatedPropertiesByAgent(string $agent_id, int $limit): Collection;
     /**
      * Update an existing property.
      *

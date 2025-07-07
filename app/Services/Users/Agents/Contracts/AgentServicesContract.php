@@ -2,6 +2,8 @@
 
 namespace App\Services\Users\Agents\Contracts;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 interface AgentServicesContract
 {
@@ -12,6 +14,14 @@ interface AgentServicesContract
      */
     public function fetchAllAgents();
 
+
+    /**
+     *  Fetch some agents.
+     *
+     * @param int $limit
+     * @return mixed
+     */
+    public function fetchSomeAgent(int $limit): Collection;
     /**
      *  Update agent information.
      *
@@ -28,4 +38,11 @@ interface AgentServicesContract
      * @return bool
      */
     public function deleteAgent($agentId);
+    /**
+     *  Fetch all agents with pagination.
+     *
+     * @param int $pageSize
+     * @return mixed
+     */
+    public function fetchAllAgentsWithPaginate(int $pageSize):LengthAwarePaginator;
 }

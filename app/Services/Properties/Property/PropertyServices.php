@@ -120,4 +120,8 @@ class PropertyServices implements PropertyServicesContract
         if ($message != null) return true;
         return false;
     }
+    public function fetchRelatedPropertiesByAgent(string $agent_id, int $limit): Collection
+    {
+        return $this->propertyRepo->getRelatedPropertiesByAgent($agent_id, $limit);
+    }
 }

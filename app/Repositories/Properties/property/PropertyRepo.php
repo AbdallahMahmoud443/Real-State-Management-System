@@ -100,4 +100,11 @@ class PropertyRepo implements PropertyRepoContract
             ->orderBy('id', 'desc')
             ->paginate($pageSize);
     }
+    public function getRelatedPropertiesByAgent(string $agent_id, int $limit): ?Collection
+    {
+        return Property::where('agent_id', $agent_id)
+            ->where('is_active', '1')
+            ->orderBy('id', 'desc')
+            ->limit($limit)->get();
+    }
 }

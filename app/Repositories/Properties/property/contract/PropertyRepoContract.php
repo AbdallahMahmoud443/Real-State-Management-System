@@ -81,4 +81,11 @@ interface PropertyRepoContract
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public function getRelatedPropertiesByLocation(string $location_id, int $pageSize): LengthAwarePaginator;
+    /**
+     * retrieve related property based on agent
+     * @param string $agent_id The ID of the agent.
+     * @param int $limit The maximum number of related properties to retrieve.
+     * @return Collection<int, Property>|null
+     */
+    public function getRelatedPropertiesByAgent(string $agent_id, int $limit): ?Collection;
 }

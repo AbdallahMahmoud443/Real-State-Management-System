@@ -8,7 +8,7 @@ use App\Models\Location;
 use App\Services\Properties\Locations\LocationService;
 use App\Services\PricingPackages\PricingPackagesService;
 use App\Services\Properties\Property\PropertyServices;
-
+use App\Services\Users\Agents\AgentServices;
 
 class FrontController extends Controller
 {
@@ -17,13 +17,15 @@ class FrontController extends Controller
         protected PricingPackagesService $pricingPackagesService,
         protected LocationService $locationService,
         protected PropertyServices $propertyServices,
+        protected AgentServices $agentServices,
 
     ) {}
     public function index()
     {
         $properties = $this->propertyServices->fetchSomeOfProperties(6);
         $locations = $this->locationService->fetchSomeLocations(8);
-        return view('frontend.pages.home', compact('properties', 'locations'));
+        $agents  = $this->agentServices->fetchSomeAgent(4);
+        return view('frontend.pages.home', compact('properties', 'locations', 'agents'));
     }
     public function contact()
     {
@@ -66,5 +68,17 @@ class FrontController extends Controller
         $is_sending = $this->propertyServices->sendEnquiryMail($request->all(), $slug);
         if (!$is_sending) return redirect()->back()->with('error', 'Something went wrong!');
         return redirect()->back()->with('success', 'send message successfully!');
+    }
+    public function agents()
+    {
+        $agents = $this->agentServices->fetchAllAgentsWithPaginate(4);
+        return view('frontend.pages.agents', compact('agents'));
+    }
+    public function agentsDetails(int $id)
+    {
+        $agent = $this->agentServices->fetchAgentById($id);
+        $properties = $this->propertyServices->fetchPropertiesByAgentId($id);
+
+        return view('frontend.pages.agent_details', compact('agent', 'properties'));
     }
 }
