@@ -37,7 +37,7 @@ class BaseUpdateProfileRepository implements BaseUpdateProfileContract
      */
     public function UpdateSystemUserImageProfile(array $image): void
     {
-        $systemUser = $this->getAuthenticatedUser($this->guard);
+        $systemUser = $this->getAuthenticatedUser();
         $systemUser->update($image);
     }
 }

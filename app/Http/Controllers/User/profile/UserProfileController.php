@@ -13,7 +13,7 @@ class UserProfileController extends Controller
 {
     public function __construct(protected UserUpdateProfileService $userUpdateProfileService) {}
     //
-    public function profile()
+   public function profile()
     {
         return view('User.profile.profile');
     }

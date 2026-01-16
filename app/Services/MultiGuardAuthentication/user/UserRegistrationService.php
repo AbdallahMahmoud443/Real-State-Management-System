@@ -18,7 +18,7 @@ class UserRegistrationService implements RegistrationServiceContract
         $token = Hash('sha256', time());
         $validated_data['token'] = $token;
         $this->UserRegistrationRepo->CreateUser($validated_data);
-        $this->verifyRegistration->SendVerificationEmail($validated_data['email'], $token);
+        $this->verifyRegistration->SendVerificationEmail($validated_data['email'], $token, 'user');
     }
     public function RegisterVerify($token): bool
     {

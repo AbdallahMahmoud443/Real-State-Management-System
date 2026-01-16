@@ -3,19 +3,26 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MultiAuthentication System</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <link rel="icon" type="image/png" href="uploads/favicon.png">
+    <title>Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    @include('admin.layouts.assets_files.top-asset-files')
 
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
-<body style="background-color: rgb(10, 10, 32);" class="text-white">
-    @include('admin.layouts.navbar')
-    <div class="container my-5">
-        @yield('content')
+<body>
+    <div id="app">
+        <div class="main-wrapper">
+            @include('admin.layouts.navbar')
+            @include('admin.layouts.sidebar')
+        
+            <div class="main-content">
+                @yield('content')
+            </div>
+        </div>
     </div>
-
+    @include('admin.layouts.assets_files.bottom-asset-files')
 </body>
 
 </html>

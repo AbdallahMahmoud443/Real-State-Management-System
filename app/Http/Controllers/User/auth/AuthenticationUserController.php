@@ -5,7 +5,6 @@ namespace App\Http\Controllers\User\auth;
 use App\Http\Controllers\Controller;
 use App\Services\MultiGuardAuthentication\user\UserAuthService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AuthenticationUserController extends Controller
 {

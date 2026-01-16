@@ -1,28 +1,27 @@
-<nav class="navbar navbar-expand-lg p-3 " style="background-color: rgb(16, 16, 51)">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{ route('home') }}">
-            <strong><span style="font-size: 1.5rem"><span style="color: rgb(53, 184, 142)">MultiAuth
-                        System</span></span></strong></a>
-
-        <button aria-controls="myNavbar2" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
-            data-bs-target="#myNavbar2" data-bs-toggle="collapse" type="button"> <span
-                class="navbar-toggler-icon"></span> </button>
-        <div class="collapse navbar-collapse" id="myNavbar2">
-            <div class="ml-5">
-                <ul class="navbar-nav" id="menu-menu-1">
-
-                </ul>
-            </div>
-        </div>
-        <div>
-            @if (!Auth::guard('admin')->check())
-                <a class="btn btn-light" href="{{ route('admin.login.show') }}">login</a>
-                <a class="btn btn-light" href="{{ route('admin.register.show') }}">register</a>
-            @else
-                <a class="btn btn-light" href="{{ route('admin.profile.show') }}">profile</a>
-                <a class="btn btn-danger" href="{{ route('admin.logout.handle') }}">logout</a>
-            @endif
-
-        </div>
-    </div>
+<div class="navbar-bg"></div>
+<nav class="navbar navbar-expand-lg main-navbar">
+    <form class="form-inline mr-auto">
+        <ul class="navbar-nav mr-3">
+            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+        </ul>
+    </form>
+    <ul class="navbar-nav navbar-right justify-content-end rightsidetop">
+        <li class="nav-link">
+            <a href="" target="_blank" class="btn btn-warning">Front End</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <img alt="image" src="{{ asset(Auth::guard('admin')->user()->photo) }}"
+                    class="rounded-circle-custom">
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="{{ route('admin.profile.show') }}"><i class="far fa-user"></i> Edit
+                        Profile</a></li>
+                <li><a class="dropdown-item" href="{{ route('admin.logout.handle') }}"><i
+                            class="fas fa-sign-out-alt"></i>
+                        Logout</a></li>
+            </ul>
+        </li>
+    </ul>
 </nav>

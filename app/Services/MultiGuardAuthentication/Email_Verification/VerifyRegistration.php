@@ -9,10 +9,10 @@ use App\Services\MultiGuardAuthentication\Contracts\RegisterEmailVerificationCon
 
 class VerifyRegistration implements RegisterEmailVerificationContract
 {
-    public function SendVerificationEmail(string $email, string $token): void
+    public function SendVerificationEmail(string $email, string $token, string $userType): void
     {
         // hint: link send with verification email
-        $link = route('user.register-verify.handle', $token);
+        $link = route($userType . '.register-verify.handle', $token);
         $email_subject = 'Register Email Verification';
         $body = [
             'link' => $link,
